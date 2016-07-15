@@ -12,7 +12,10 @@ $app->post('/auth',function() use ($app){
     $query = $pdo->select()->from("user")->where("email","=",$email);
     $result = $query->execute();
     if($result->rowCount()==0){
-      $authenFailed = true;
+      $app->render(401,array(
+        'error_code' => 9,
+        'message' => 'parameter email and password are require',
+      ));
     }else{
       $result = $result->fetch();
       $isMatch = $passwordHasher->checkPassword($password,$result["hash"]);
@@ -22,7 +25,7 @@ $app->post('/auth',function() use ($app){
         require_once("config.php");
         $token = array(
             "iss" => $config["jwt"]["domain"],
-            "aud" => "http://example.com",
+            "aud" => $config["jwt"]["domain"],
             "iat" => time(),
             "nbf" => time(),
             "exp" => time()+$config["jwt"]["expire"],
@@ -32,6 +35,8 @@ $app->post('/auth',function() use ($app){
         );
         $jwt = JWT::encode($token, $config["jwt"]["secret"]);
         $app->render(200,array(
+          'id' => $result["id"],
+          'username' => $result["username"],
           'token' => $jwt,
         ));
       }

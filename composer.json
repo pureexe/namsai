@@ -4,6 +4,7 @@
     "entomb/slim-json-api": "dev-master",
     "slim/pdo": "~1.9",
     "pentagonal/phpass": "^1.0",
-    "firebase/php-jwt": "^3.0"
+    "firebase/php-jwt": "^3.0",
+    "palanik/corsslim": "^1.1"
   }
 }

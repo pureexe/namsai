@@ -4,6 +4,7 @@
   //$app->config('debug', false); // reenable in production
   $app->view(new \JsonApiView());
   $app->add(new \JsonApiMiddleware());
+  $app->add(new \CorsSlim\CorsSlim());
   require("helper/jwt.php");
   $app->get('/', function() use ($app) {
     $app->render(200,array(
