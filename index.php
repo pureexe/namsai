@@ -11,7 +11,7 @@
       'message' => 'welcome to NAMSAI rest api system',
     ));
   });
-  require("routes/user.php");
+  require("routes/users.php");
   require("routes/auth.php");
   require("routes/bot.php");
   $app->run();

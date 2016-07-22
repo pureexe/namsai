@@ -7,3 +7,7 @@
 to register new user
 
 parameter - email,password
+
+#Error code doc
+
+10 - user from search not found

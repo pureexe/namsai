@@ -3,6 +3,11 @@ $app->post('/add',function() use ($app){
   $token = $app->request->post("token");
   $botname = $app->request->post("name");
   $description = $app->request->post("description");
+  $private = 0;
+  $privatepost = $app->request->post("private");
+  if($privatepost && $privatepost == "true" ){
+    $private = 1;
+  }
   $isFailed = false;
   require("helper/pdo.php");
   if(!$token||!$botname||!$description){
@@ -34,13 +39,14 @@ $app->post('/add',function() use ($app){
         ));
       }else{
         $query = $pdo
-          ->insert(array('ownerid', 'name','description'))
+          ->insert(array('ownerid', 'name','description','private'))
           ->into('bot_info')
-          ->values(array($userid,$botname,$description));
+          ->values(array($userid,$botname,$description,$private));
         $result = $query->execute();
         $lastid = $pdo->lastInsertId();
         $app->render(200,array(
           'id'=> "".$lastid,
+          'name'=> $botname,
           'message' => 'add bot name '.$botname.' success',
         ));
       }
