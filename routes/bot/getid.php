@@ -9,15 +9,15 @@ $app->get('/getid', function() use ($app,$config,$pdo) {
   $name = $app->request->get("name");
   $query = $pdo
             ->select()
-            ->from("bot_info")
+            ->from("bot")
             ->where('user_name','=',$owner,'AND')
             ->where('bot_name','=',$name)
-            ->join('user','user.user_id','=','bot_info.bot_ownerid');
+            ->join('user','user.user_id','=','bot.bot_ownerid');
   $result = $query->execute();
   if($result->rowCount()!=0){
     $result = $result->fetch();
     $app->render(200,array(
-      'id' => $result['botid'],
+      'id' => $result['bot_id'],
     ));
   }else{
     $app->render(400,array(

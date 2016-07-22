@@ -5,7 +5,7 @@ $app->get('/:user',function($username) use ($app,$config,$pdo){
   if($result->rowCount()!=0){
     $result = $result->fetch();
     $user_id = $result["user_id"];
-    $query = $pdo->select()->from("bot_info")->where("bot_ownerid","=",$user_id);
+    $query = $pdo->select()->from("bot")->where("bot_ownerid","=",$user_id);
     $result = $query->execute()->fetchAll();
     $botData = array();
     foreach ($result as $row) {

@@ -25,7 +25,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
       ));
     }else{
       $query = $pdo->insert(array('bot_id','story_name'))
-                ->into('bot_story')
+                ->into('story')
                 ->values(array($botid,$name));
       $query->execute();
       $lastid = $pdo->lastInsertId();

@@ -29,7 +29,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
         'message' => 'token has been expire',
       ));
     }else{
-      $query = $pdo->select()->from("bot_info")->whereMany(array('bot_ownerid' => $userid, 'bot_name' => $botname), '=');;
+      $query = $pdo->select()->from("bot")->whereMany(array('bot_ownerid' => $userid, 'bot_name' => $botname), '=');;
       $result = $query->execute();
       if($result->rowCount()!=0){
         $app->render(400,array(
@@ -39,7 +39,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
       }else{
         $query = $pdo
           ->insert(array('bot_ownerid', 'bot_name','bot_description','bot_private'))
-          ->into('bot_info')
+          ->into('bot')
           ->values(array($userid,$botname,$description,$private));
         $result = $query->execute();
         $lastid = $pdo->lastInsertId();
