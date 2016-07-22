@@ -1,5 +1,5 @@
 <?php
-$app->post('/add',function() use ($app){
+$app->post('/add',function() use ($app,$config,$pdo){
   $token = $app->request->post("token");
   $botname = $app->request->post("name");
   $description = $app->request->post("description");
@@ -9,7 +9,6 @@ $app->post('/add',function() use ($app){
     $private = 1;
   }
   $isFailed = false;
-  require("helper/pdo.php");
   if(!$token||!$botname||!$description){
     $app->render(400,array(
       'error_code' => 5,
@@ -30,7 +29,7 @@ $app->post('/add',function() use ($app){
         'message' => 'token has been expire',
       ));
     }else{
-      $query = $pdo->select()->from("bot_info")->whereMany(array('ownerid' => $userid, 'name' => $botname), '=');;
+      $query = $pdo->select()->from("bot_info")->whereMany(array('bot_ownerid' => $userid, 'bot_name' => $botname), '=');;
       $result = $query->execute();
       if($result->rowCount()!=0){
         $app->render(400,array(
@@ -39,7 +38,7 @@ $app->post('/add',function() use ($app){
         ));
       }else{
         $query = $pdo
-          ->insert(array('ownerid', 'name','description','private'))
+          ->insert(array('bot_ownerid', 'bot_name','bot_description','bot_private'))
           ->into('bot_info')
           ->values(array($userid,$botname,$description,$private));
         $result = $query->execute();

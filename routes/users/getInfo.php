@@ -1,19 +1,18 @@
 <?php
-$app->get('/:user',function($username) use ($app){
-  require("helper/pdo.php");
-  $query = $pdo->select()->from("user")->where("username","=",$username);
+$app->get('/:user',function($username) use ($app,$config,$pdo){
+  $query = $pdo->select()->from("user")->where("user_name","=",$username);
   $result = $query->execute();
   if($result->rowCount()!=0){
     $result = $result->fetch();
-    $user_id = $result["id"];
-    $query = $pdo->select()->from("bot_info")->where("ownerid","=",$user_id);
+    $user_id = $result["user_id"];
+    $query = $pdo->select()->from("bot_info")->where("bot_ownerid","=",$user_id);
     $result = $query->execute()->fetchAll();
     $botData = array();
     foreach ($result as $row) {
       $out = array(
-        'id'=>$row["id"],
-        'name'=>$row["name"],
-        'description'=>$row["description"],
+        'id'=>$row["bot_id"],
+        'name'=>$row["bot_name"],
+        'description'=>$row["bot_description"],
       );
       $botData[] = $out;
     }

@@ -1,5 +1,5 @@
 <?php
-$app->post('/register',function() use ($app){
+$app->post('/register',function() use ($app,$config,$pdo){
   $email = $app->request->post("email");
   $password = $app->request->post("password");
   $username = $app->request->post("username");
@@ -10,9 +10,8 @@ $app->post('/register',function() use ($app){
       'message'=>'parameter email,username and password is require for register',
     ));
   }else{
-    require("helper/pdo.php");
     $passwordHasher = new Pentagonal\Phpass\PasswordHash(8,false);
-    $query = $pdo->select()->from('user')->where('email','=',$email);
+    $query = $pdo->select()->from('user')->where('user_email','=',$email);
     $count = $query->execute()->rowCount();
     if($count!=0){
       $app->render(400,array(
@@ -22,7 +21,7 @@ $app->post('/register',function() use ($app){
       ));
     }else{
       $pdo
-        ->insert(array('username','email', 'hash'))
+        ->insert(array('user_name','user_email', 'user_hash'))
         ->into('user')
         ->values(array($username,$email,$passwordHasher->hashPassword($password)))
         ->execute();

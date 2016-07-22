@@ -5,14 +5,9 @@
   $app->view(new \JsonApiView());
   $app->add(new \JsonApiMiddleware());
   $app->add(new \CorsSlim\CorsSlim());
+  require("config.php");
   require("helper/jwt.php");
-  $app->get('/', function() use ($app) {
-    $app->render(200,array(
-      'message' => 'welcome to NAMSAI rest api system',
-    ));
-  });
-  require("routes/users.php");
-  require("routes/auth.php");
-  require("routes/bot.php");
+  require("helper/pdo.php");
+  require("routes/index.php");
   $app->run();
 ?>
