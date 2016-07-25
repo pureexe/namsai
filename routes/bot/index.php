@@ -11,5 +11,6 @@ $app->group('/bot', function () use ($app,$config,$pdo) {
   require("search.php");
   require("remove.php");
   require("story/index.php");
+  require("node/index.php");
 });
 ?>

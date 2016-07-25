@@ -16,3 +16,5 @@ parameter - email,password
 11 - add story failed
 12 - token and botid is require
 14 - bot not found
+15 - storyid,value,type and token are require
+16 - storyid,name and token are require

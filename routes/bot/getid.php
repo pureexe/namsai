@@ -1,8 +1,8 @@
 <?php
 /*
+get botid from owner's name and botname
 route: /bot/getid
 parameter: owner,name
-description: get botid from owner's name and botname
 */
 $app->get('/getid', function() use ($app,$config,$pdo) {
   $owner = $app->request->get("owner");

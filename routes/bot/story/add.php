@@ -10,14 +10,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
     $name="";
   }
   if($token&&$botid){
-    try{
-      $userid = jwtToUserId($token);
-    }catch(ErrorException $e){
-      $app->render(400,array(
-        'error_code' => 0,
-        'message' =>  ''.$e,
-      ));
-    }
+    $userid = jwtToUserId($token);
     if(!$userid){
       $app->render(401,array(
         'error_code' => 6,
