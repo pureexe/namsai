@@ -9,7 +9,7 @@ parameter: storyid,value,type,token,
 $app->post('/add',function() use ($app,$config,$pdo){
   $token = $app->request->post("token");
   $value = $app->request->post("value");
-  $storyid = $app->request->post("storyid");
+  $storyid = $app->request->post("story_id");
   $type = $app->request->post("type");
   if($token&&$storyid&&$type&&$value){
     $userid = jwtToUserId($token);

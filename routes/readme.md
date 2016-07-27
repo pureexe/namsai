@@ -18,3 +18,5 @@ parameter - email,password
 14 - bot not found
 15 - storyid,value,type and token are require
 16 - storyid,name and token are require
+17 - node_id and token are require
+18 - edge_id and token are require
