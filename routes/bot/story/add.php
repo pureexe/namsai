@@ -1,5 +1,7 @@
 <?php
 /*
+route: /bot/story/add
+parameter: name,token,bot_id
 TODO: Prevent cross Access control hack not implement yet
 */
 $app->post('/add',function() use ($app,$config,$pdo){
@@ -23,7 +25,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
       $query->execute();
       $lastid = $pdo->lastInsertId();
       $app->render(200,array(
-        'id' => $lastid,
+        'id' => intval($lastid),
         'message' => 'add new story complete',
       ));
     }
