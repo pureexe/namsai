@@ -11,7 +11,10 @@ $app->post('/add',function() use ($app,$config,$pdo){
   $value = $app->request->post("value");
   $storyid = $app->request->post("story_id");
   $type = $app->request->post("type");
-  if($token&&$storyid&&$type&&$value){
+  if($token&&$storyid&&$type){
+    if(!$value){
+      $value = "";
+    }
     $userid = jwtToUserId($token);
     if(!$userid){
       $app->render(401,array(
@@ -32,7 +35,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
   }else{
     $app->render(400,array(
       'error_code' => 15,
-      'message' => 'storyid,value,type and token are require',
+      'message' => 'storyid,type and token are require',
     ));
   }
 });

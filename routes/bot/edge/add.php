@@ -11,7 +11,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
   $node_id = $app->request->post("node_id");
   $node_next = $app->request->post("node_next");
   $edge_order = $app->request->post("edge_order");
-  if($token&&$node_id&&$node_next){
+  if(isset($token) && isset($node_id) && isset($node_next)){
     $userid = jwtToUserId($token);
     if(!$userid){
       $app->render(401,array(
@@ -38,7 +38,7 @@ $app->post('/add',function() use ($app,$config,$pdo){
   }else{
     $app->render(400,array(
       'error_code' => 15,
-      'message' => 'storyid,value,type and token are require',
+      'message' => 'node_id, node_next and token are require',
     ));
   }
 });

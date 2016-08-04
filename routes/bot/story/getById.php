@@ -11,14 +11,15 @@ $app->get('/get/:id',function($id) use ($app,$config,$pdo){
     $result = $query->execute();
     if($result->rowCount()!=0){
       $storyData = $result->fetch();
-      $query = $pdo->prepare("SELECT * FROM `edge` WHERE `node_id` = '0' AND node_next = ANY (SELECT `node_next` FROM `node` WHERE `node_storyid` = ?)");
+      $query = $pdo->prepare("SELECT * FROM `edge` WHERE `node_id` = '0' AND node_next = ANY (SELECT `node_id` FROM `node` WHERE `node_storyid` = ?)");
       $query->execute(array($id));
-      $result = $query->fetch();
+      $result = $query->fetchAll();
       if($result != false){
         $tree = array();
         $getTreeFromDB = function ($node_id,&$cursor) use ($pdo,&$getTreeFromDB){
           $query = $pdo->select()->from("node")->where("node_id","=",$node_id);
           $result = $query->execute()->fetch();
+          $cursor['id'] = $result['node_id'];
           $cursor['type'] = $result['node_type'];
           $cursor['value'] = $result['node_value'];
           $query = $pdo->select()->from("edge")->where("node_id","=",$node_id);
@@ -32,7 +33,10 @@ $app->get('/get/:id',function($id) use ($app,$config,$pdo){
             }
           }
         };
-        $getTreeFromDB($result["node_next"],$tree);
+        foreach ($result as $row) {
+          $tree[] = array();
+          $getTreeFromDB($row["node_next"],$tree[count($tree)-1]);
+        }
         $app->render(200,array(
           'id'=>$storyData['story_id'],
           'name'=>$storyData['story_name'],
