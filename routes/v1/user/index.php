@@ -1,5 +1,5 @@
 <?php
-$app->group('/users', function () use ($app,$config,$pdo) {
+$app->group('/user', function () use ($app,$config,$pdo) {
   require("register.php");
   require("getInfo.php");
 });

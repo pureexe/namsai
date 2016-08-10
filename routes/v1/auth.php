@@ -1,20 +1,31 @@
 <?php
+/*
+login into NAMSAI system
+POST: /v1/auth
+PARAMETER:
+  - email|username
+  - password
+RESPONSE:
+  - access_token
+*/
 use \Firebase\JWT\JWT;
 $app->post('/auth',function() use ($app,$config,$pdo){
   $email = $app->request->post("email");
+  $username = $app->request->post("username");
   $password = $app->request->post("password");
   $passwordHasher = new Pentagonal\Phpass\PasswordHash(8,false);
   $authenFailed = false;
-  if(!$email || !$password){
+  if((!$email && !$username) || !$password){
     $authenFailed = true;
   }else{
-    $query = $pdo->select()->from("user")->where("user_email","=",$email);
+    if($email){
+      $query = $pdo->select()->from("user")->where("user_email","=",$email);
+    }else{
+      $query = $pdo->select()->from("user")->where("user_name","=",$username);
+    }
     $result = $query->execute();
     if($result->rowCount()==0){
-      $app->render(401,array(
-        'error_code' => 9,
-        'message' => 'parameter email and password are require',
-      ));
+      $authenFailed = true;
     }else{
       $result = $result->fetch();
       $isMatch = $passwordHasher->checkPassword($password,$result["user_hash"]);
@@ -33,17 +44,17 @@ $app->post('/auth',function() use ($app,$config,$pdo){
         );
         $jwt = JWT::encode($token, $config["jwt"]["secret"]);
         $app->render(200,array(
-          'id' => $result["user_id"],
-          'username' => $result["user_name"],
-          'token' => $jwt,
+          'access_token' => $jwt,
         ));
       }
     }
   }
   if($authenFailed){
     $app->render(401,array(
-      'error_code' => 4,
-      'message' => 'Email or Password isn\'t correct',
+      'error'=>array(
+        'code' => 1,
+        'message' => 'username,email or password isn\'t correct',
+      )
     ));
   }
 });

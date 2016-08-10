@@ -1,5 +1,15 @@
 <?php
-$app->post('/register',function() use ($app,$config,$pdo){
+/*
+Register new user
+POST: /v1/user
+PARAMETER:
+  - email
+  - username
+  - password
+RESPONSE:
+  - id
+*/
+$app->post('/',function() use ($app,$config,$pdo){
   $email = $app->request->post("email");
   $password = $app->request->post("password");
   $username = $app->request->post("username");
