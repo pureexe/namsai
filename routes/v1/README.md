@@ -38,7 +38,49 @@ ERROR:
 
 ## User
 
-## แสดงข้อมูลผู้ใช้ของฉัน
+### สมัครสมาชิกใหม่
+POST: /v1/users
+PARAMETER: email,username,password,name
+RETURN: (user) id
+ERROR:
+  -
+    response_code: 400
+    code: 4
+    message: parameter name,email,username and password is require for register
+  -
+    response_code: 400
+    code: 5
+    message: this email has been already register
+  -
+    response_code: 400
+    code: 6
+    message: this username has been already register
+  -
+    response_code: 400
+    code: 7
+    message: username {{username}} is reserved for system
+
+### เปลี่ยนพาสเวิร์ด
+POST: /v1/users/password
+PARAMETER: password,newpassword,access_token
+
+### เปลี่ยนอีเมล
+POST: /v1/users/email
+PARAMETER: email
+
+### เปลี่ยนชื่อ
+POST: /v1/users/name
+PARAMETER: name
+
+### เปลี่ยนคำอธิบาย
+POST: /v1/users/bio
+PARAMETER: bio
+
+### เปลี่ยน username
+POST: /v1/users/username
+PARAMETER: username
+
+### แสดงข้อมูลผู้ใช้ของฉัน
 GET: /v1/users
 PARAMETER:
   - access_token
@@ -58,9 +100,9 @@ ERROR:
     code: 3
     message: username {{:username}} not found,
 
-### สมัครสมาชิกใหม่
-POST: /v1/users
-PARAMETER: email,username,password
+### แสดง repos ของผู้ใช้ที่กำหนด
+GET: /v1/users/:username/repos
+
 
 ## Repo
 
