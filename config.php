@@ -12,6 +12,7 @@
       ),
       'reserved_username'=>array(
         'username',
+        'name',
         'admin',
         'password',
         'email',

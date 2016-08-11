@@ -1,6 +1,8 @@
 # NAMSAI api documentaion
 version: 1
 
+//TODO: Need to implement
+- check token date issue and make blacklist after change password
 
 ## GLOBAL ERROR message
 ERROR:
@@ -63,22 +65,37 @@ ERROR:
 ### เปลี่ยนพาสเวิร์ด
 POST: /v1/users/password
 PARAMETER: password,newpassword,access_token
+RESPONSE: (user)id
+ERROR:
+  -
+    response_code: 400
+    code: 8
+    message: password is mismatch
 
 ### เปลี่ยนอีเมล
 POST: /v1/users/email
-PARAMETER: email
+PARAMETER: email,access_token
+RESPONSE: (user)id
+ERROR:
+  -
+    response_code: 400
+    code: 5
+    message: this email has been already register
+  -
+    response_code: 400
+    code: 9
+    message: email is invalid
 
-### เปลี่ยนชื่อ
+
+### เปลี่ยนชื่อเต็ม
 POST: /v1/users/name
-PARAMETER: name
+PARAMETER: name,access_token
+RESPONSE: (user)id
+ERROR:
 
 ### เปลี่ยนคำอธิบาย
 POST: /v1/users/bio
 PARAMETER: bio
-
-### เปลี่ยน username
-POST: /v1/users/username
-PARAMETER: username
 
 ### แสดงข้อมูลผู้ใช้ของฉัน
 GET: /v1/users
@@ -93,12 +110,16 @@ GET: /v1/users/:username
 PARAMETER:
 RESPONSE:
   - id
+  - name
+  - username
+  - email
+  - bio
   - public_repos (นับจำนวน repo ที่มี)
 ERROR:
   -
     response_code: 404
     code: 3
-    message: username {{:username}} not found,
+    message: username {{:username}} not exist,
 
 ### แสดง repos ของผู้ใช้ที่กำหนด
 GET: /v1/users/:username/repos

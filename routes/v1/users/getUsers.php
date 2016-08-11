@@ -4,27 +4,19 @@ $app->get('/:user',function($username) use ($app,$config,$pdo){
   $result = $query->execute();
   if($result->rowCount()!=0){
     $result = $result->fetch();
-    $user_id = $result["user_id"];
-    $query = $pdo->select()->from("bot")->where("bot_ownerid","=",$user_id);
-    $result = $query->execute()->fetchAll();
-    $botData = array();
-    foreach ($result as $row) {
-      $out = array(
-        'id'=>$row["bot_id"],
-        'name'=>$row["bot_name"],
-        'description'=>$row["bot_description"],
-      );
-      $botData[] = $out;
-    }
     $app->render(200,array(
-      'id'=>$user_id,
-      'username'=>$username,
-      'bot'=>$botData
+      'id'=>$result["user_id"],
+      'username'=>$result["user_name"],
+      'name'=>$result["user_fullname"],
+      'email'=> $result["user_email"],
+      'bio'=> $result["user_bio"],
     ));
   }else{
-    $app->render(400,array(
-      'error_code' => '10',
-      'message'=>'username '+$username+' isn\'t found',
+    $app->render(404,array(
+      'error' => array(
+        'code' => 3,
+        'message' => 'username '.$username.' not exist',
+      )
     ));
   }
 });

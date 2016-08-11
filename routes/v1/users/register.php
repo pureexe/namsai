@@ -1,5 +1,6 @@
 <?php
 /*
+//TODO: disable reserved name and begin with number
 Register new user
 POST: /v1/users
 PARAMETER:
