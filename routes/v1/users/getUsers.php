@@ -1,4 +1,15 @@
 <?php
+/*
+get user information
+GET: /v1/users/:user
+PARAMETER:
+RESPONSE:
+  - id
+  - username
+  - name
+  - email
+  - bio
+*/
 $app->get('/:user',function($username) use ($app,$config,$pdo){
   $query = $pdo->select()->from("user")->where("user_name","=",$username);
   $result = $query->execute();

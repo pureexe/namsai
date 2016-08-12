@@ -7,6 +7,7 @@ $app->group('/users', function () use ($app,$config,$pdo) {
   require("changeEmail.php");
   require("changeBio.php");
   //Use wildcard must be buttom
+  require("getUserMe.php");
   require("getUsers.php");
 });
 ?>
