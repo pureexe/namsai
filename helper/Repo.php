@@ -189,8 +189,13 @@ class Repo{
       return ($result["repo_private"]==0)?false:true;
     }
   }
-  public static function setDescription(){
-
+  public static function setDescription($repoId,$description){
+    global $pdo;
+    $query = $pdo
+      ->update(array('repo_description' => $description))
+      ->table('repo')
+      ->where('repo_id', '=', $repoId);
+    $result = $query->execute();
   }
   public static function getDescription($repoId){
     global $pdo;

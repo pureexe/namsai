@@ -198,10 +198,27 @@ Error
     code: 15
     message: only owner can set private state
 
-## อ่านรายละเอียดของ repo
+### อ่านรายละเอียดของ repo
 GET: /repos/:user/:repo/description
 PARAMETER:
   - access_token (Optional for private repo only)
 RESPONSE:
   - id (repo's id)
   - description
+
+### เปลี่ยนรายละเอียดของ repo
+POST: /repos/:user/:repo/description
+PARAMETER:
+  - access_token
+  - description
+RESPONSE:
+  - id (repo's id)
+ERROR:
+  -
+    response_code: 401
+    code: 15
+    message: only owner can set description
+  -
+    response_code: 400
+    code: 16
+    message: require parameter access_token and description
