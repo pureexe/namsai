@@ -176,3 +176,23 @@ ERROR:
     response_code: 401
     code: 14
     message: only owner can delete repository
+
+### อ่านค่า private ของ repo
+ดูว่า repo ปัจจุบันเป็น Private อยู่หรือไม่
+GET: /repos/:user/:repo/private
+PARAMETER:
+  - access_token (Optional for private repo only)
+RESPONSE:
+  - private (boolean)
+
+### ตั้ง Private ของ repo
+POST: /repos/:user/:repo/private
+PARAMETER:
+  - access_token
+RESPONSE:
+  - id (repo's id)
+Error
+  -
+    response_code: 401
+    code: 15
+    message: only owner can set private state

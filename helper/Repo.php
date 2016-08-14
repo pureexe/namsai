@@ -167,8 +167,13 @@ class Repo{
     $result = $query->execute();
     return $pdo->lastInsertId();
   }
-  public static function setPrivate(){
-
+  public static function setPrivate($repoId,$state){
+    global $pdo;
+    $query = $pdo
+      ->update(array('repo_private' => $state))
+      ->table('repo')
+      ->where('repo_id', '=', $repoId);
+    $result = $query->execute();
   }
   public static function getPrivate($repoId){
     global $pdo;

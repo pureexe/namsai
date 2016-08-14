@@ -4,6 +4,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/repoGet.php');
     require('management/repoRemove.php');
     require('management/privateGet.php');
+    require('management/privateSet.php');
 });
 
 
@@ -25,14 +26,6 @@ POST: /repos/:user/:repo/description
 PARAMETER:
   - access_token
   - description
-RESPONSE:
-  - id (repo's id)
-
-กำหนดให้ repo ปัจจุบัน
-POST: /repos/:user/:repo/private
-PARAMETER:
-  - access_token
-  - private (boolean)
 RESPONSE:
   - id (repo's id)
 
