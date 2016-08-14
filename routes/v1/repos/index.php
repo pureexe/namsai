@@ -6,6 +6,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/privateGet.php');
     require('management/privateSet.php');
     require('management/privateUnset.php');
+    require('management/descriptionGet.php');
 });
 
 
@@ -13,14 +14,6 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 -----------------
 ส่วนจัดการทั่วไป
 -----------------
-
-GET: ดึง description ของ repo
-POST: /repos/:user/:repo/description
-PARAMETER:
-  - access_token (Optional for private repo only)
-RESPONSE:
-  - id (repo's id)
-  - description
 
 แก้ไข description ของ repo
 POST: /repos/:user/:repo/description
