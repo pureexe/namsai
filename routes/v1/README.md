@@ -128,14 +128,24 @@ GET: /v1/users/:username/repos
 ## Repo
 
 ### ตอบโต้กับบอท
-POST: /v1/repo/:name/talk
-PARAMETER: message,id(Optional)
-
-### เพิ่มโหนดใหม่
-POST: /v1/repo/:name/node
-
-### ลบโหลด
-DELETE: /v1/repo/:name/node
-
-### อัปเดตข้อมูลโหนด
-PUT: /v1/repo/:name/node
+POST: /v1/repos/:user/:repo/
+PARAMETER:
+  - access_token
+  - name
+  - description
+  - private (boolean)
+RESPONSE:
+  - id (repo's id)
+ERROR:
+  -
+    response_code: 400
+    code: 10
+    message: require parameter access_token,name and description
+  -
+    response_code: 400
+    code: 11
+    message: name must contain english alphabelt and number only
+  -
+    response_code: 400
+    code: 12
+    message: respository name {{name}} isn't avaliable

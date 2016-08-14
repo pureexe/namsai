@@ -1,5 +1,9 @@
 <?php
 $app->group('/repos', function () use ($app,$config,$pdo) {
+    require('management/repoAdd.php');
+});
+
+
 /*
 -----------------
 ส่วนจัดการทั่วไป
@@ -14,15 +18,7 @@ RESPONSE:
   - description
   - private (boolean)
 
-สร้าง Repo ใหม่
-POST: /repos/:user/:repo
-PARAMETER:
-  - access_token
-  - name
-  - description
-  - private (boolean)
-RESPONSE:
-  - id (repo's id)
+
 
 ลบ Repo ที่มีอยู่แล้ว
 DELETE: /repos/:user/:repo
@@ -208,5 +204,4 @@ RESPONSE:
   - id (story's id)
 
   */
-});
 ?>
