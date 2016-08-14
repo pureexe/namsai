@@ -5,6 +5,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/repoRemove.php');
     require('management/privateGet.php');
     require('management/privateSet.php');
+    require('management/privateUnset.php');
 });
 
 
