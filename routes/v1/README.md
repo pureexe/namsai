@@ -183,6 +183,7 @@ GET: /repos/:user/:repo/private
 PARAMETER:
   - access_token (Optional for private repo only)
 RESPONSE:
+  - id (repo's id)
   - private (boolean)
 
 ### ตั้ง Private ของ repo
@@ -196,3 +197,11 @@ Error
     response_code: 401
     code: 15
     message: only owner can set private state
+
+## อ่านรายละเอียดของ repo
+GET: /repos/:user/:repo/description
+PARAMETER:
+  - access_token (Optional for private repo only)
+RESPONSE:
+  - id (repo's id)
+  - description

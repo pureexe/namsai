@@ -1,7 +1,7 @@
 <?php
 /*
-GET: ดึง description ของ repo
-POST: /repos/:user/:repo/description
+ดึง description ของ repo
+GET: /repos/:user/:repo/description
 PARAMETER:
   - access_token (Optional for private repo only)
 RESPONSE:

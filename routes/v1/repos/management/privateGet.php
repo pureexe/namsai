@@ -5,6 +5,7 @@ GET: /repos/:user/:repo/private
 PARAMETER:
   - access_token (Optional for private repo only)
 RESPONSE:
+  - id (repo's id)
   - private (boolean)
 */
 $app->get('/:user/:repo/private',function($username,$reponame) use ($app,$config,$pdo){
@@ -33,6 +34,7 @@ $app->get('/:user/:repo/private',function($username,$reponame) use ($app,$config
     ));
   }else{
     $app->render(200,array(
+      'id'=>$repoId,
       'private'=>$private,
     ));
   }
