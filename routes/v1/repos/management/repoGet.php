@@ -16,7 +16,7 @@ $app->get('/:user/:repo',function($username,$reponame) use ($app,$config,$pdo){
   if($access_token){
     $userId = jwtToUserId($access_token);
   }
-  $repoId = getRepoId($username,$reponame,$userId);
+  $repoId = Repo::getId($username,$reponame,$userId);
   if(!$repoId){
     $app->render(404,array(
       'error'=> array(
@@ -25,16 +25,12 @@ $app->get('/:user/:repo',function($username,$reponame) use ($app,$config,$pdo){
       ),
     ));
   }else{
-    $query = $pdo
-      ->select()
-      ->from('repo')
-      ->where('repo_id','=',$repoId);
-    $result = $query->execute()->fetch();
+    $repo = Repo::get($repoId);
     $app->render(200,array(
-      'id'=>intval($result['repo_id']),
-      'name'=>$result['repo_name'],
-      'description'=>$result['repo_description'],
-      'private'=>($result['repo_private']==1)?true:false,
+      'id'=>intval($repo['repo_id']),
+      'name'=>$repo['repo_name'],
+      'description'=>$repo['repo_description'],
+      'private'=>($repo['repo_private']==1)?true:false,
     ));
   }
 });

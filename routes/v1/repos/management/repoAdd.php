@@ -29,8 +29,8 @@ $app->post('/',function() use ($app,$config,$pdo){
       ),
     ));
   }else{
-    $userid = jwtToUserId($access_token);
-    if(!$userid){
+    $userId = jwtToUserId($access_token);
+    if(!$userId){
       $app->render(401,array(
          'error' => array(
            'code' => 401,
@@ -46,13 +46,7 @@ $app->post('/',function() use ($app,$config,$pdo){
           ),
         ));
       }else{
-        $query = $pdo
-          ->select()
-          ->from('repo')
-          ->where('repo_ownerid','=',$userid)
-          ->where('repo_name','=',$name);
-        $result = $query->execute();
-        if($result->rowCount()!=0){
+        if(!Repo::isAvaliable($name,$userId)){
           $app->render(400,array(
             'error'=> array(
               'code' => 11,
@@ -60,13 +54,8 @@ $app->post('/',function() use ($app,$config,$pdo){
             ),
           ));
         }else{
-          $query = $pdo
-            ->insert(array('repo_ownerid', 'repo_name','repo_description','repo_private'))
-            ->into('repo')
-            ->values(array($userid,$name,$description,$private));
-          $result = $query->execute();
           $app->render(200,array(
-            'id'=> intval($pdo->lastInsertId()),
+            'id'=> intval(Repo::add(array($userId,$name,$description,$private))),
           ));
         }
       }

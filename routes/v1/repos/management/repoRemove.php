@@ -18,28 +18,18 @@ $app->delete('/:user/:repo',function($username,$reponame) use ($app,$config,$pdo
        )
     ));
   }else{
-    $repoId = findRepoId($username,$reponame);
-    $query = $pdo
-      ->select()
-      ->from('repo')
-      ->where('repo_id','=',$repoId)
-      ->where('repo_ownerid','=',$userId);
-    $result = $query->execute();
-    if($result->rowCount()==0){
+    $repoId = Repo::getid($username,$reponame);
+    if($repoId && Repo::getOwner($repoId) == $userId){
+      Repo::remove($repoId);
+      $app->render(200,array(
+        'id'=>intval($repoId)
+      ));
+    }else{
       $app->render(401,array(
          'error' => array(
            'code' => 14,
            'message' => 'only owner can delete repository'
          )
-      ));
-    }else{
-      $query = $pdo
-        ->delete()
-        ->from('repo')
-        ->where('repo_id', '=', $repoId);
-      $query->execute();
-      $app->render(200,array(
-         'id'=>intval($repoId)
       ));
     }
   }
