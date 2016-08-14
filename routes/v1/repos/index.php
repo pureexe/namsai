@@ -2,6 +2,7 @@
 $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/repoAdd.php');
     require('management/repoGet.php');
+    require('management/repoRemove.php');
 });
 
 
@@ -9,14 +10,6 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 -----------------
 ส่วนจัดการทั่วไป
 -----------------
-
-
-ลบ Repo ที่มีอยู่แล้ว
-DELETE: /repos/:user/:repo
-PARAMETER:
-  - access_token
-RESPONSE:
-  - id (repo's id)
 
 GET: ดึง description ของ repo
 POST: /repos/:user/:repo/description

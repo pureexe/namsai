@@ -1,7 +1,7 @@
 <?php
 /*
 Retivive Repo data from DB
-GET: /repos/:user/:repo
+GET: /v1/repos/:user/:repo
 PARAMETER:
   - access_token (Optional for private repo only)
 RESPONSE:

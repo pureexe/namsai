@@ -2,7 +2,7 @@
 /*
 //TODO: check name avaliable support for contributor
 Create new repository
-POST: /repos/:user/:repo
+POST: /v1/repos/:user/:repo
 PARAMETER:
   - access_token
   - name

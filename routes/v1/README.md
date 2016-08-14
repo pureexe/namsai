@@ -151,17 +151,28 @@ ERROR:
     message: respository name {{name}} isn't avaliable
 
 ### เข้าถึง REPO
-### สร้าง REPO ใหม่
-POST: /v1/repos/:user/:repo/
+GET: /v1/repos/:user/:repo/
 PARAMETER:
-  - access_token
+  - access_token (Optional for private repo only)
+RESPONSE:
+  - id (repo's id)
   - name
   - description
   - private (boolean)
-RESPONSE:
-  - id (repo's id)
 ERROR:
   -
     response_code: 404
     code: 13
     message: respository {{user}}/{{name}} isn't found
+
+### ลบ REPO
+DELETE: /v1/repos/:user/:repo/
+PARAMETER:
+  - access_token
+RESPONSE:
+  - id (repo's id)
+ERROR:
+  -
+    response_code: 401
+    code: 14
+    message: only owner can delete repository
