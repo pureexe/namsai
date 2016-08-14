@@ -20,7 +20,7 @@ class JsonRenderMiddleware extends \Slim\Middleware {
                 $errorCode = 500;
             }
             // Log error with the same message
-            $message = \JsonRenderMiddleware::_errorType($e->getCode()) .": ". $e->getMessage();
+            $message = \JsonRenderMiddleware::_errorType($e->getCode()) .': '. $e->getMessage();
             $app->getLog()->error($message . ' in ' . $e->getFile() . ' at line ' . $e->getLine());
             $app->render($errorCode,array(
                 'error'=>array(
@@ -47,7 +47,10 @@ class JsonRenderMiddleware extends \Slim\Middleware {
             }
             if (strlen($app->response()->body()) == 0) {
                 $app->render(500,array(
-                    'message'   => 'Empty response',
+                    'error' => array(
+                      'code' => 500,
+                      'message'=> 'Empyty Response'
+                    )
                 ));
             }
         });

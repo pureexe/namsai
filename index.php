@@ -10,6 +10,7 @@
   require("config.php");
   require("helper/jwt.php");
   require("helper/pdo.php");
+  require("helper/util.php");
   require("routes/index.php");
   $app->run();
 ?>

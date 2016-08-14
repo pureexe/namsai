@@ -127,7 +127,7 @@ GET: /v1/users/:username/repos
 
 ## Repo
 
-### ตอบโต้กับบอท
+### สร้าง REPO ใหม่
 POST: /v1/repos/:user/:repo/
 PARAMETER:
   - access_token
@@ -149,3 +149,19 @@ ERROR:
     response_code: 400
     code: 12
     message: respository name {{name}} isn't avaliable
+
+### เข้าถึง REPO
+### สร้าง REPO ใหม่
+POST: /v1/repos/:user/:repo/
+PARAMETER:
+  - access_token
+  - name
+  - description
+  - private (boolean)
+RESPONSE:
+  - id (repo's id)
+ERROR:
+  -
+    response_code: 404
+    code: 13
+    message: respository {{user}}/{{name}} isn't found

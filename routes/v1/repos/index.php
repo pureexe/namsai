@@ -1,6 +1,7 @@
 <?php
 $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/repoAdd.php');
+    require('management/repoGet.php');
 });
 
 
@@ -8,16 +9,6 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 -----------------
 ส่วนจัดการทั่วไป
 -----------------
-ดึงข้อมูลจาก Repo มาแสดง
-GET: /repos/:user/:repo
-PARAMETER:
-  - access_token (Optional for private repo only)
-RESPONSE:
-  - id (repo's id)
-  - name
-  - description
-  - private (boolean)
-
 
 
 ลบ Repo ที่มีอยู่แล้ว
