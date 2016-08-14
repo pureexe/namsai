@@ -15,6 +15,15 @@ $app->get('/:user/:repo',function($username,$reponame) use ($app,$config,$pdo){
   $userId = null;
   if($access_token){
     $userId = jwtToUserId($access_token);
+    if(!$userId){
+      $app->render(401,array(
+         'error' => array(
+           'code' => 401,
+           'message' => 'access_token is invalid'
+         )
+      ));
+      return;
+    }
   }
   $repoId = Repo::getId($username,$reponame,$userId);
   if(!$repoId){

@@ -170,7 +170,19 @@ class Repo{
   public static function setPrivate(){
 
   }
-  public static function getPrivate(){
+  public static function getPrivate($repoId){
+    global $pdo;
+    $query = $pdo
+      ->select(array('repo_private'))
+      ->from('repo')
+      ->where('repo_id','=',$repoId);
+    $result = $query->execute();
+    if($result->rowCount()==0){
+      return null;
+    }else{
+      $result = $result->fetch();
+      return ($result["repo_private"]==0)?false:true;
+    }
 
   }
   public static function setDescription(){

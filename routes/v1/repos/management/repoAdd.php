@@ -1,6 +1,5 @@
 <?php
 /*
-//TODO: check name avaliable support for contributor
 Create new repository
 POST: /v1/repos/:user/:repo
 PARAMETER:

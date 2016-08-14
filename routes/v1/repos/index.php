@@ -3,6 +3,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/repoAdd.php');
     require('management/repoGet.php');
     require('management/repoRemove.php');
+    require('management/privateGet.php');
 });
 
 
@@ -26,13 +27,6 @@ PARAMETER:
   - description
 RESPONSE:
   - id (repo's id)
-
-ดูว่า repo ปัจจุบันเป็น Private อยู่หรือไม่
-GET: /repos/:user/:repo/private
-PARAMETER:
-  - access_token (Optional for private repo only)
-RESPONSE:
-  - private (boolean)
 
 กำหนดให้ repo ปัจจุบัน
 POST: /repos/:user/:repo/private
