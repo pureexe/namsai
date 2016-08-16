@@ -11,7 +11,7 @@ RESPONSE:
 $app->delete('/:user/:repo/contributor',function($username,$reponame) use ($app,$config,$pdo){
   $access_token = $app->request->delete('access_token');
   $deleteUser = $app->request->delete('username');
-  if(!$access_token||!$username){
+  if(!$access_token||!$deleteUser){
     $app->render(400,array(
         'error' => array(
           'code' => 17,
@@ -49,17 +49,26 @@ $app->delete('/:user/:repo/contributor',function($username,$reponame) use ($app,
     ));
     return;
   }
-  $deleteUserId = User::getId($addUser);
-  if(Repo::isExistContributor($repoId,$addUserId)){
-    $app->render(400,array(
+  $deleteUserId = User::getId($deleteUser);
+  if(!$deleteUserId){
+    $app->render(404,array(
       'error'=> array(
-        'code' => 21,
-        'message' => $addUser.' isn\'t contribute in '.$username.'/'.$reponame,
+        'code' => 22,
+        'message' => 'username '.$deleteUser.' isn\'t exist',
       ),
     ));
     return;
   }
-  Repo::removeContributor($repoId,$addUserId);
+  if(!Repo::isExistContributor($repoId,$deleteUserId)){
+    $app->render(400,array(
+      'error'=> array(
+        'code' => 21,
+        'message' => $deleteUser.' isn\'t contribute in '.$username.'/'.$reponame,
+      ),
+    ));
+    return;
+  }
+  Repo::removeContributor($repoId,$deleteUserId);
   $app->render(200,array(
     'id'=>$repoId
   ));

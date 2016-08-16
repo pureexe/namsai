@@ -259,5 +259,17 @@ class Repo{
     }
     return $output;
   }
+  /*
+  removeContributor
+  */
+  public static function removeContributor($repoId,$userId){
+    global $pdo;
+    $query = $pdo
+      ->delete()
+      ->from('contributor')
+      ->where('repo_id', '=', $repoId)
+      ->where('user_id', '=', $userId);
+    $query->execute();
+  }
 }
 ?>

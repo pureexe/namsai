@@ -11,7 +11,7 @@ RESPONSE:
 $app->post('/:user/:repo/contributor',function($username,$reponame) use ($app,$config,$pdo){
   $access_token = $app->request->post('access_token');
   $addUser = $app->request->post('username');
-  if(!$access_token||!$username){
+  if(!$access_token||!$addUser){
     $app->render(400,array(
         'error' => array(
           'code' => 17,
@@ -51,7 +51,7 @@ $app->post('/:user/:repo/contributor',function($username,$reponame) use ($app,$c
   }
   $addUserId = User::getId($addUser);
   if(!$addUserId){
-    $app->render(400,array(
+    $app->render(404,array(
       'error'=> array(
         'code' => 22,
         'message' => 'username '.$addUser.' isn\'t exist',
