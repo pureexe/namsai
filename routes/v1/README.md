@@ -243,7 +243,10 @@ ERROR:
     response_code: 400
     code: 19
     message: {{user}} has been already add to {{username}}/{{reponame}}
-
+  -
+    response_code: 404
+    code: 22
+    message: username {{user}} isn't exist
 ##ดึงข้อมูลผู้ร่วมพัฒนาทั้งหมด
 GET: /repos/:user/:repo/contributor
 PARAMETER:
@@ -251,3 +254,19 @@ PARAMETER:
 RESPONSE:
   - id (repo's id)
   - contributor (array){id,username,name,email,bio}
+##ลบผู้ร่วมพัฒนา
+DELETE: /repos/:user/:repo/contributor
+PARAMETER:
+  - username
+  - access_token (owner only)
+RESPONSE:
+  - id (repo's id)
+ERROR:
+  -
+    response_code: 401
+    code: 20
+    message: only owner can remove contributor
+  -
+    response_code: 400
+    code: 21
+    message: {{user}} isn't contribute in {{username}}/{{reponame}}

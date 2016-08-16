@@ -50,6 +50,15 @@ $app->post('/:user/:repo/contributor',function($username,$reponame) use ($app,$c
     return;
   }
   $addUserId = User::getId($addUser);
+  if(!$addUserId){
+    $app->render(400,array(
+      'error'=> array(
+        'code' => 22,
+        'message' => 'username '.$addUser.' isn\'t exist',
+      ),
+    ));
+    return;
+  }
   if(Repo::isExistContributor($repoId,$addUserId)){
     $app->render(400,array(
       'error'=> array(

@@ -10,6 +10,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/descriptionUpdate.php');
     require('management/contributorAdd.php');
     require('management/contributorGet.php');
+    require('management/contributorRemove.php');
 });
 
 
@@ -22,13 +23,6 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 
 
 
-ลบผู้ร่วมพัฒนา
-DELETE: /repos/:user/:repo/contributor
-PARAMETER:
-  - username
-  - access_token (owner only)
-RESPONSE:
-  - id (repo's id)
 
 // Fork,merge,issue,wiki ไม่มาเร็วๆนี้แน่นอน
 
