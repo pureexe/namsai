@@ -186,7 +186,7 @@ class Repo{
       return null;
     }else{
       $result = $result->fetch();
-      return ($result["repo_private"]==0)?false:true;
+      return ($result['repo_private']==0)?false:true;
     }
   }
   public static function setDescription($repoId,$description){
@@ -234,6 +234,30 @@ class Repo{
       ->values(array($repoId,$userId));
     $result = $query->execute();
     return $pdo->lastInsertId();
+  }
+  /*
+  getContributor
+  */
+  public static function getContributor($repoId){
+    global $pdo;
+    $query = $pdo
+      ->select()
+      ->from('contributor')
+      ->where('repo_id','=',$repoId)
+      ->join('user','contributor.user_id','=','user.user_id');
+    $result = $query->execute()->fetchAll();
+    $output = array();
+    foreach ($result as $row) {
+      $out = array(
+        'id'=>$row['user_id'],
+        'username'=>$row['user_name'],
+        'name'=>$row['user_fullname'],
+        'email'=>$row['user_email'],
+        'bio'=>$row['user_bio'],
+      );
+      $output[] = $out;
+    }
+    return $output;
   }
 }
 ?>

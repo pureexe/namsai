@@ -243,4 +243,11 @@ ERROR:
     response_code: 400
     code: 19
     message: {{user}} has been already add to {{username}}/{{reponame}}
-    
+
+##ดึงข้อมูลผู้ร่วมพัฒนาทั้งหมด
+GET: /repos/:user/:repo/contributor
+PARAMETER:
+  - access_token (Optional for private repo only)
+RESPONSE:
+  - id (repo's id)
+  - contributor (array){id,username,name,email,bio}

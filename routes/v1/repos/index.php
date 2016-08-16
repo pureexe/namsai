@@ -9,6 +9,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/descriptionGet.php');
     require('management/descriptionUpdate.php');
     require('management/contributorAdd.php');
+    require('management/contributorGet.php');
 });
 
 

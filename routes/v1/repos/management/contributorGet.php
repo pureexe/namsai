@@ -6,9 +6,9 @@ PARAMETER:
   - access_token (Optional for private repo only)
 RESPONSE:
   - id (repo's id)
-  - contributor (array){id,name,username}
+  - contributor (array){id,username,name,email,bio}
 */
-$app->get('/:user/:repo/description',function($username,$reponame) use ($app,$config,$pdo){
+$app->get('/:user/:repo/contributor',function($username,$reponame) use ($app,$config,$pdo){
   $access_token = $app->request->get('access_token');
   $userId = null;
   if($access_token){
@@ -33,7 +33,10 @@ $app->get('/:user/:repo/description',function($username,$reponame) use ($app,$co
     ));
     return ;
   }
-  // NOT COMPLETE YET
   $contributor = Repo::getContributor($repoId);
+  $app->render(200,array(
+    'id'=>$repoId,
+    'contributor'=>$contributor,
+  ));
 });
 ?>
