@@ -14,8 +14,8 @@ $app->post('/:user/:repo/description',function($username,$reponame) use ($app,$c
   if(!$access_token||!$description){
     $app->render(400,array(
         'error' => array(
-          'code' => 16,
-          'message' => 'require parameter access_token and description'
+          'code' => 401,
+          'message' => 'access_token is invalid'
         )
     ));
     return;

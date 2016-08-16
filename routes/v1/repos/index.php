@@ -8,6 +8,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/privateUnset.php');
     require('management/descriptionGet.php');
     require('management/descriptionUpdate.php');
+    require('management/contributorAdd.php');
 });
 
 
@@ -18,21 +19,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 
 
 
-ดึงข้อมูลผู้ร่วมพัฒนาทั้งหมด
-GET: /repos/:user/:repo/contributor
-PARAMETER:
-  - access_token (Optional for private repo only)
-RESPONSE:
-  - id (repo's id)
-  - contributor (array){id,name,username}
 
-เพิ่มผู้ร่วมพัฒนา
-POST: /repos/:user/:repo/contributor
-PARAMETER:
-  - username
-  - access_token (owner only)
-RESPONSE:
-  - id (repo's id)
 
 ลบผู้ร่วมพัฒนา
 DELETE: /repos/:user/:repo/contributor

@@ -222,3 +222,25 @@ ERROR:
     response_code: 400
     code: 16
     message: require parameter access_token and description
+
+#เพิ่มผู้ร่วมพัฒนา
+POST: /repos/:user/:repo/contributor
+PARAMETER:
+  - username
+  - access_token (owner only)
+RESPONSE:
+  - id (repo's id)
+ERROR:
+  -
+    response_code: 400
+    code: 17
+    message: require parameter access_token and username
+  -
+    response_code: 401
+    code: 18
+    message: only owner can add contributor
+  -
+    response_code: 400
+    code: 19
+    message: {{user}} has been already add to {{username}}/{{reponame}}
+    

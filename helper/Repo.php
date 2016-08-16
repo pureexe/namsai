@@ -210,5 +210,30 @@ class Repo{
       return $result->fetch()['repo_description'];
     }
   }
+  /*
+  isExistContributor
+  */
+  public static function isExistContributor($repoId,$userId){
+    global $pdo;
+    $query = $pdo
+      ->select()
+      ->from('contributor')
+      ->where('repo_id','=',$repoId)
+      ->where('user_id','=',$userId);
+    $result = $query->execute();
+    return ($result->rowCount()!=0)?true:false;
+  }
+  /*
+  addContributor
+  */
+  public static function addContributor($repoId,$userId){
+    global $pdo;
+    $query = $pdo
+      ->insert(array('repo_id', 'user_id'))
+      ->into('contributor')
+      ->values(array($repoId,$userId));
+    $result = $query->execute();
+    return $pdo->lastInsertId();
+  }
 }
 ?>
