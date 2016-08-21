@@ -270,3 +270,17 @@ ERROR:
     response_code: 400
     code: 21
     message: {{user}} isn't contribute in {{username}}/{{reponame}}
+
+###สร้างโหนดใหม่
+POST: /repos/:user/:repo/nodes
+PARAMETER:
+  - access_token
+  - story_id
+  - value
+RESPONSE:
+  - id (node's id)
+ERROR:
+  -
+    response_code: 400
+    code: 23
+    message: storyid,type and access_token are require

@@ -10,8 +10,9 @@
   require("config.php");
   require("helper/jwt.php");
   require("helper/pdo.php");
-  require("helper/repo.php");
-  require("helper/user.php");
+  require("helper/Repo.php");
+  require("helper/User.php");
+  require("helper/Node.php");
   require("routes/index.php");
   $app->run();
 ?>

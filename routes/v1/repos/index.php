@@ -11,6 +11,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/contributorAdd.php');
     require('management/contributorGet.php');
     require('management/contributorRemove.php');
+    require('core/nodeAdd.php');
 });
 
 
@@ -73,15 +74,6 @@ RESPONSE
   - type
   - value
   - story {id,name}
-
-สร้างโหนดใหม่
-POST: /repos/:user/:repo/node
-PARAMETER:
-  - access_token
-  - story_id
-  - value
-RESPONSE:
-  - id (node's id)
 
 เปลี่ยนค่าโหนดเดิม
 POST: /repos/:user/:repo/node/:id

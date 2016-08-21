@@ -1,7 +1,7 @@
 <?php
 /*
 Create new repository
-POST: /v1/repos/:user/:repo
+POST: /v1/repos/
 PARAMETER:
   - access_token
   - name
