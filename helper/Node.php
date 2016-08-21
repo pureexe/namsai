@@ -12,6 +12,16 @@ class Node{
     $query->execute();
     return $pdo->lastInsertId();
   }
-
+  /*
+  update node value
+  */
+  public static function update($nodeId,$value){
+    global $pdo;
+    $query = $pdo
+      ->update(array('node_value' => $value))
+      ->table('node')
+      ->where('node_id', '=', $nodeId);
+    $result = $query->execute();
+  }
 }
 ?>

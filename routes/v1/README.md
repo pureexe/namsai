@@ -284,3 +284,16 @@ ERROR:
     response_code: 400
     code: 23
     message: storyid,type and access_token are require
+
+###เปลี่ยนค่าโหนดเดิม
+POST: /repos/:user/:repo/node/:id
+PARAMETER:
+  - access_token
+  - value
+RESPONSE:
+  - id (node's id)
+ERROR:
+  -
+    response_code: 400
+    code: 24
+    message: value and access_token are require

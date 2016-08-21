@@ -36,7 +36,7 @@ $app->post('/:user/:repo/nodes',function($username,$reponame) use ($app,$config,
       }else{
         $app->render(400,array(
            'error' => array(
-             'code' => 23,
+             'code' => 13,
              'message' => 'respository '.$username.'/'.$reponame.' isn\'t found'
            )
         ));
