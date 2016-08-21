@@ -297,3 +297,28 @@ ERROR:
     response_code: 400
     code: 24
     message: value and access_token are require
+###ลบโหนด
+DELETE: /repos/:user/:repo/nodes/:id
+PARAMETER:
+  - access_token
+RESPONSE:
+  - id (node's id)
+ERROR:
+  -
+    response_code: 400
+    code: 25
+    message: access_token is require
+  -
+    response_code: 400
+    code: 26
+    message: node_id {{node_id}} isn't exist
+
+###ดึงค่าของโหนด
+GET: /repos/:user/:repo/node/:id
+PARAMETER:
+  - access_token (optional for private repo)
+RESPONSE
+  - id
+  - type
+  - value
+  - story {id,name}

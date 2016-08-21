@@ -12,6 +12,7 @@
   require("helper/pdo.php");
   require("helper/Repo.php");
   require("helper/User.php");
+  require("helper/Story.php");
   require("helper/Node.php");
   require("routes/index.php");
   $app->run();

@@ -13,6 +13,8 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('management/contributorRemove.php');
     require('core/nodeAdd.php');
     require('core/nodeUpdate.php');
+    require('core/nodeRemove.php');
+    require('core/nodeGet.php');
 });
 
 
@@ -67,21 +69,8 @@ RESPONSE
   - id (variable's id)
 
 
-ดึงค่าของโหนด
-GET: /repos/:user/:repo/node/:id
-PARAMETER:
-  - access_token (optional for private repo)
-RESPONSE
-  - type
-  - value
-  - story {id,name}
 
-ลบโหนด
-DELETE: /repos/:user/:repo/node/:id
-PARAMETER:
-  - access_token
-RESPONSE:
-  - id (node's id)
+
 
 รับเส้นเชื่อม
 GET: /repos/:user/:repo/edge/:id
