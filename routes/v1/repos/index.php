@@ -16,6 +16,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('core/nodeRemove.php');
     require('core/nodeGet.php');
     require('core/storyAdd.php');
+    require('core/storyRemove.php');
 });
 
 
@@ -104,15 +105,6 @@ PARAMETER:
   - access_token (optional for private repo)
 RESPONSE:
   - name
-
-
-
-ลบหัวข้อเรื่อง
-DELETE: /repos/:user/:repo/story/id
-PARAMETER:
-  - access_token
-RESPONSE:
-  - id (story's id)
 
   */
 ?>

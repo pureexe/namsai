@@ -60,5 +60,15 @@
         ->where('story_id', '=', $storyId);
       $query->execute();
     }
+  /* isExist */
+  public static function isExist($storyId){
+    global $pdo;
+    $query = $pdo
+      ->select()
+      ->from('story')
+      ->where('story_id','=',$storyId);
+    $result = $query->execute();
+    return ($result->rowCount()!=0)?true:false;
   }
+}
 ?>

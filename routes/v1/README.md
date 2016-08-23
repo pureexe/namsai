@@ -330,3 +330,15 @@ PARAMETER:
   - access_token
 RESPONSE:
   - id (story's id)
+
+###ลบหัวข้อเรื่อง
+DELETE: /repos/:user/:repo/stories/id
+PARAMETER:
+  - access_token
+RESPONSE:
+  - id (story's id)
+ERROR:
+  -
+    response_code: 400
+    code: 27
+    message: story_id {{story_id}} isn't exist
