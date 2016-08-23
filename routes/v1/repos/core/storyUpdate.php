@@ -1,17 +1,17 @@
 <?php
 /*
-เปลี่ยนค่าโหนดเดิม
-POST: /repos/:user/:repo/node/:id
+เปลี่ยนชื่อหัวข้อเรื่อง
+POST: /repos/:user/:repo/stories/:id
 PARAMETER:
   - access_token
-  - value
+  - name
 RESPONSE:
   - id (node's id)
 */
-$app->post('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use ($app,$config,$pdo){
+$app->post('/:user/:repo/stories/:id',function($username,$reponame,$storyId) use ($app,$config,$pdo){
   $access_token = $app->request->post('access_token');
-  $value = $app->request->post("value");
-  if($access_token && $value){
+  $name = $app->request->post("name");
+  if($access_token && $name){
     $userid = jwtToUserId($access_token);
     if(!$userid){
       $app->render(401,array(
@@ -22,16 +22,16 @@ $app->post('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use ($
       ));
     }else{
       if(Repo::getId($username,$reponame,$userid)){
-        if(Node::isExist($nodeId)){
-          Node::update($nodeId,$value);
+        if(Story::isExist($storyId)){
+          Story::update($storyId,$name);
           $app->render(200,array(
-            'id' => intval($nodeId),
+            'id' => intval($storyId),
           ));
         }else{
           $app->render(400,array(
             'error' => array(
-              'code' => 26,
-              'message' => 'node_id '.$nodeId.' isn\'t exist'
+              'code' => 27,
+              'message' => 'story_id '.$storyId.' isn\'t exist'
             )
           ));
         }
@@ -47,8 +47,8 @@ $app->post('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use ($
   }else{
     $app->render(400,array(
        'error' => array(
-         'code' => 24,
-         'message' => 'value and access_token are require'
+         'code' => 28,
+         'message' => 'name and access_token are require'
        )
     ));
   }

@@ -70,5 +70,14 @@
     $result = $query->execute();
     return ($result->rowCount()!=0)?true:false;
   }
+  /* update */
+  public static function update($storyId,$name){
+    global $pdo;
+    $query = $pdo
+      ->update(array('story_name' => $name))
+      ->table('story')
+      ->where('story_id', '=', $storyId);
+    $result = $query->execute();
+  }
 }
 ?>

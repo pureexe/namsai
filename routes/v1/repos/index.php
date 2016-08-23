@@ -17,6 +17,8 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('core/nodeGet.php');
     require('core/storyAdd.php');
     require('core/storyRemove.php');
+    require('core/storyGet.php');
+    require('core/storyUpdate.php');
 });
 
 
@@ -24,11 +26,6 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 -----------------
 ส่วนจัดการทั่วไป
 -----------------
-
-
-
-
-
 
 // Fork,merge,issue,wiki ไม่มาเร็วๆนี้แน่นอน
 
@@ -98,13 +95,5 @@ PARAMETER:
   - access_token (optional for private repo)
 RESPONSE:
   - id (Edge id)
-
-ร้บหัวข้อเรื่อง
-GET: /repos/:user/:repo/story/:id
-PARAMETER:
-  - access_token (optional for private repo)
-RESPONSE:
-  - name
-
   */
 ?>

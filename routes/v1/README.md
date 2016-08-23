@@ -342,3 +342,24 @@ ERROR:
     response_code: 400
     code: 27
     message: story_id {{story_id}} isn't exist
+
+###รับหัวข้อเรื่อง
+GET: /repos/:user/:repo/stories/:id
+PARAMETER:
+  - access_token (optional for private repo)
+RESPONSE:
+  - id (story's id)
+  - name
+
+###เปลี่ยนชื่อหัวข้อเรื่อง
+POST: /repos/:user/:repo/stories/:id
+PARAMETER:
+  - access_token
+  - name
+RESPONSE:
+  - id (node's id)
+ERROR:
+  -
+    response_code: 400
+    code: 28
+    message: name and access_token are require
