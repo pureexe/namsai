@@ -15,6 +15,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('core/nodeUpdate.php');
     require('core/nodeRemove.php');
     require('core/nodeGet.php');
+    require('core/storyAdd.php');
 });
 
 
@@ -104,13 +105,7 @@ PARAMETER:
 RESPONSE:
   - name
 
-สร้างหัวข้อเรื่องใหม่
-POST: /repos/:user/:repo/story
-PARAMETER:
-  - name (optional)
-  - access_token
-RESPONSE:
-  - id (story's id)
+
 
 ลบหัวข้อเรื่อง
 DELETE: /repos/:user/:repo/story/id

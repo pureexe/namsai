@@ -25,6 +25,7 @@ class Node{
   }
   /*
   delete node
+  //TODO: must automatic unlink when remove node
   */
   public static function remove($nodeId){
     global $pdo;

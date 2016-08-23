@@ -55,5 +55,3 @@ $app->delete('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use 
   }
 });
 ?>
-
-?>

@@ -9,7 +9,7 @@ RESPONSE
   - type
   - value
   - story {id,name}
-
+//TODO: get repoId from StoryId and check is repoId same with repoId from prevent cross repo request
 */
 $app->get('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use ($app,$config,$pdo){
   $access_token = $app->request->get('access_token');

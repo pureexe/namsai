@@ -322,3 +322,11 @@ RESPONSE
   - type
   - value
   - story {id,name}
+
+###สร้างหัวข้อเรื่องใหม่
+POST: /repos/:user/:repo/stories
+PARAMETER:
+  - name (optional)
+  - access_token
+RESPONSE:
+  - id (story's id)
