@@ -19,6 +19,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('core/storyRemove.php');
     require('core/storyGet.php');
     require('core/storyUpdate.php');
+    require('core/edgeAdd.php');
 });
 
 
@@ -80,14 +81,6 @@ RESPONSE:
   - current
   - next
 
-สร้างเส้นเชื่อมใหม่ระหว่าง 2 Node
-POST /repos/:user/:repo/edge/
-PARAMETER:
-  - access_token
-  - current (current node id)
-  - next (node that point next)
-RESPONSE
-  - id (edge's id)
 
 ลบเส้นเชื่อม
 DELETE: /repos/:user/:repo/edge/:id

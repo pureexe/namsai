@@ -12,5 +12,11 @@ class User{
     $result = $query->execute();
     return $result->fetch()['user_id'];
   }
+  /*
+  fromToken
+  */
+  public static function fromToken($token){
+    
+  }
 }
 ?>

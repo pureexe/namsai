@@ -14,6 +14,7 @@
   require("helper/User.php");
   require("helper/Story.php");
   require("helper/Node.php");
+  require("helper/Edge.php");
   require("routes/index.php");
   $app->run();
 ?>

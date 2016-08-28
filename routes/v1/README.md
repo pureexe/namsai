@@ -363,3 +363,22 @@ ERROR:
     response_code: 400
     code: 28
     message: name and access_token are require
+
+###สร้างเส้นเชื่อมใหม่ระหว่าง 2 Node
+POST /repos/:user/:repo/edges
+PARAMETER:
+  - access_token
+  - current (current node id)
+  - next (node that point next)
+  - order (Edge order)(optional)
+RESPONSE:
+  - id (edge's id)
+ERROR:
+  -
+    response_code: 400
+    code: 29
+    message: current, next and access_token are require
+  -
+    response_code: 400
+    code: 30
+    message: Edge from {{current}} to {{next}} is already exist
