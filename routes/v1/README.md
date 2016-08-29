@@ -382,3 +382,16 @@ ERROR:
     response_code: 400
     code: 30
     message: Edge from {{current}} to {{next}} is already exist
+### ลบเส้นเชื่อม
+DELETE: /repos/:user/:repo/edges
+PARAMETER:
+  - current
+  - next
+  - access_token (optional for private repo)
+RESPONSE:
+  - id (Edge id)
+ERROR:
+  -
+    response_code: 400
+    code: 31
+    message: Edge from {{current}} to {{next}} isn't exist

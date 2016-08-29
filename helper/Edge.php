@@ -9,7 +9,6 @@
       $query->execute();
       return $pdo->lastInsertId();
     }
-    /*delete
     public static function remove($cNode,$nNode){
       global $pdo;
       $query = $pdo
@@ -19,6 +18,7 @@
         ->where('node_next','=',$nNode);
       $query->execute();
     }
+    /*delete
     public static function next($cNode){
       global $pdo;
       $query = $pdo
@@ -46,7 +46,12 @@
         ->where('node_next','=',$nNode);
       $result = $query->execute();
       if($result->rowCount()>0){
-        return $result->fetch();
+        $result = $result->fetch();
+        return array(
+          'id' => $result['edge_id'],
+          'current'=> $result['node_id'],
+          'next'=> $result['node_next']
+        );
       }else{
         return null;
       }

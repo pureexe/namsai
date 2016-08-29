@@ -20,6 +20,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('core/storyGet.php');
     require('core/storyUpdate.php');
     require('core/edgeAdd.php');
+    require('core/edgeRemove.php');
 });
 
 
@@ -81,12 +82,5 @@ RESPONSE:
   - current
   - next
 
-
-ลบเส้นเชื่อม
-DELETE: /repos/:user/:repo/edge/:id
-PARAMETER:
-  - access_token (optional for private repo)
-RESPONSE:
-  - id (Edge id)
   */
 ?>
