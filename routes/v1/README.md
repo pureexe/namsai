@@ -399,3 +399,11 @@ ERROR:
     response_code: 400
     code: 31
     message: Edge from {{current}} to {{next}} isn't exist
+
+###รับเส้นเชื่อม
+GET: /repos/:user/:repo/edge/:nodeid
+PARAMETER:
+  - access_token (optional for private repo)
+RESPONSE:
+  - id (node_id)
+  - next [id,current,next,order]
