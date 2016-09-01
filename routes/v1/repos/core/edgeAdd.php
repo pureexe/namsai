@@ -16,7 +16,6 @@ $app->post('/:user/:repo/edges',function($username,$reponame) use ($app,$config,
   $nNode = $app->request->post('next');
   $order = $app->request->post('order');
   if($access_token && $cNode && $nNode){
-    $order = ($order)?0:intval($order);
     $userid = jwtToUserId($access_token);
     if(!$userid){
       $app->render(401,array(
@@ -45,6 +44,21 @@ $app->post('/:user/:repo/edges',function($username,$reponame) use ($app,$config,
                )
             ));
             return;
+        }
+        if($order){
+          $order = intval($order);
+          if(Edge::isOrderExist($cNode,$order)){
+            $app->render(400,array(
+               'error' => array(
+                 'code' => 32,
+                 'message' => 'node_id '.$cNode.' already has order number '.$order,
+               )
+            ));
+            return null;
+          }
+        }else{
+          $order = Edge::getMaxOrder($cNode);
+          $order = (!$order)?1:$order+1;
         }
         $result = Edge::add($cNode,$nNode,$order);
         $app->render(200,array(

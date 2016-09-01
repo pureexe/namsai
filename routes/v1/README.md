@@ -382,6 +382,10 @@ ERROR:
     response_code: 400
     code: 30
     message: Edge from {{current}} to {{next}} is already exist
+  -
+    response_code: 400
+    code: 32
+    message: node_id {{current}} already has order number {{order}}
 ### ลบเส้นเชื่อม
 DELETE: /repos/:user/:repo/edges
 PARAMETER:
