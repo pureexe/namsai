@@ -15,7 +15,7 @@ $app->post('/:user/:repo/edges',function($username,$reponame) use ($app,$config,
   $cNode = $app->request->post('current');
   $nNode = $app->request->post('next');
   $order = $app->request->post('order');
-  if($access_token && $cNode && $nNode){
+  if(isset($access_token) && isset($cNode) && isset($nNode)){
     $userid = jwtToUserId($access_token);
     if(!$userid){
       $app->render(401,array(
@@ -26,7 +26,7 @@ $app->post('/:user/:repo/edges',function($username,$reponame) use ($app,$config,
       ));
     }else{
       if($repoId = Repo::getId($username,$reponame,$userid)){
-        $isExistId = (!Node::isExist($cNode))?$cNode:(!Node::isExist($nNode))?$nNode:null;
+        $isExistId = (!Node::isExist($cNode) && $cNode!=0)?$cNode:(!Node::isExist($nNode) &&$cNode!=0)?$nNode:null;
         if($isExistId){
           $app->render(400,array(
              'error' => array(
