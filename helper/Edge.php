@@ -3,7 +3,7 @@
     /*add*/
     public static function add($cNode,$nNode,$order){
       global $pdo;
-      $query = $pdo->insert(array('node_id','node_next','edge_order'))
+      $query = $pdo->insert(array('edge_nodeid','edge_nodenext','edge_order'))
                 ->into('edge')
                 ->values(array($cNode,$nNode,$order));
       $query->execute();
@@ -14,8 +14,8 @@
       $query = $pdo
         ->delete()
         ->from('edge')
-        ->where('node_id', '=', $cNode)
-        ->where('node_next','=',$nNode);
+        ->where('edge_nodeid', '=', $cNode)
+        ->where('edge_nodenext','=',$nNode);
       $query->execute();
     }
     /*
@@ -43,15 +43,15 @@
         $query = $pdo
           ->select()
           ->from('edge')
-          ->where('node_id', '=', $cNode)
-          ->where('node_next','=',$nNode);
+          ->where('edge_nodeid', '=', $cNode)
+          ->where('edge_nodenext','=',$nNode);
         $result = $query->execute();
         if($result->rowCount()>0){
           $result = $result->fetch();
           return array(
             'id' => $result['edge_id'],
-            'current'=> $result['node_id'],
-            'next'=> $result['node_next']
+            'current'=> $result['edge_nodenext'],
+            'next'=> $result['edge_nodeid']
           );
         }else{
           return null;
@@ -60,7 +60,7 @@
         $query = $pdo
           ->select()
           ->from('edge')
-          ->where('node_id', '=', $cNode);
+          ->where('edge_nodeid', '=', $cNode);
         $result = $query->execute();
         if($result->rowCount()>0){
           $output = array('id'=>$cNode,'next'=>array());
@@ -68,8 +68,8 @@
           foreach ($result as $row) {
             $out =  array(
               'id' => $row['edge_id'],
-              'current'=> $row['node_id'],
-              'next'=> $row['node_next'],
+              'current'=> $row['edge_nodeid'],
+              'next'=> $row['edge_nodenext'],
               'order'=> $row['edge_order'],
             );
             $output['next'][] = $out;
@@ -99,7 +99,7 @@
       $query = $pdo
         ->select()
         ->from('edge')
-        ->where('node_id', '=', $cNode)
+        ->where('edge_nodeid', '=', $cNode)
         ->where('edge_order','=',$order);
       $result = $query->execute();
       return ($result->rowCount()>0)?true:false;

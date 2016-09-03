@@ -83,8 +83,8 @@ class Repo{
     $query = $pdo
       ->select()
       ->from('contributor')
-      ->where('repo_id','=',$repoId)
-      ->where('user_id','=',$userId);
+      ->where('contributor_repoid','=',$repoId)
+      ->where('contributor_userid','=',$userId);
     $result = $query->execute();
     if($result->rowCount()!=0){
       return true;
@@ -231,7 +231,7 @@ class Repo{
   public static function addContributor($repoId,$userId){
     global $pdo;
     $query = $pdo
-      ->insert(array('repo_id', 'user_id'))
+      ->insert(array('contributor_repoid', 'contributor_userid'))
       ->into('contributor')
       ->values(array($repoId,$userId));
     $result = $query->execute();
@@ -246,7 +246,7 @@ class Repo{
       ->select()
       ->from('contributor')
       ->where('repo_id','=',$repoId)
-      ->join('user','contributor.user_id','=','user.user_id');
+      ->join('user','contributor.contributor_userid','=','user.user_id');
     $result = $query->execute()->fetchAll();
     $output = array();
     foreach ($result as $row) {
@@ -269,8 +269,8 @@ class Repo{
     $query = $pdo
       ->delete()
       ->from('contributor')
-      ->where('repo_id', '=', $repoId)
-      ->where('user_id', '=', $userId);
+      ->where('contributor_repoid', '=', $repoId)
+      ->where('contributor_userid', '=', $userId);
     $query->execute();
   }
 }

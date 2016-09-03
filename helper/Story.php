@@ -9,7 +9,7 @@
         $order = self::getMaxOrder($repoId)+1;
       }
       $query = $pdo
-        ->insert(array('repo_id', 'story_name', 'story_order'))
+        ->insert(array('story_repoid', 'story_name', 'story_order'))
         ->into('story')
         ->values(array($repoId,$storyName,$order));
       $result = $query->execute();
@@ -48,7 +48,7 @@
       if($result->rowCount()==0){
         return null;
       }else{
-        return $result->fetch()['repo_id'];
+        return $result->fetch()['story_repoid'];
       }
     }
     /*
@@ -88,7 +88,7 @@
     $query = $pdo
       ->select()
       ->from('story')
-      ->where('repo_id','=',$repoId)
+      ->where('story_repoid','=',$repoId)
       ->orderBy('story_order','DESC')
       ->limit(1);
     $result = $query->execute();
