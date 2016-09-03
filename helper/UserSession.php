@@ -1,16 +1,20 @@
 <?php
   class UserSession{
-    private static function __add($repoId,$interactorId){
+    public static function _add($repoId,$interactorId){
       global $pdo;
-      
+      $query = $pdo->insert(array('session_repoid','session_interactorid'))
+                ->into('session')
+                ->values(array($repoId,$interactorId));
+      $query->execute();
+      return $pdo->lastInsertId();
     }
-    private static function __get($repoId,$interactorId){
+    public static function _get($repoId,$interactorId){
       global $pdo;
       $query = $pdo
         ->select()
         ->from('session')
-        ->where('repo_id','=',$repoId)
-        ->where('interactor_id','=',$interactor_id)
+        ->where('session_repoid','=',$repoId)
+        ->where('session_interactorid','=',$interactorId)
         ->where('session_update','<','DATE_SUB(NOW(),INTERVAL 5 MINUTE)');
       $result = $query->execute();
       if($result->rowCount()==0){
@@ -19,14 +23,14 @@
         $result = $result->fetch();
         return array(
           'id' => $result['session_id'],
-          'repo' => $result['repo_id'],
-          'interactor'=>$result['interactor_id'],
+          'repo' => $result['session_repoid'],
+          'interactor'=>$result['session_interactorid'],
           'node'=>$result['session_node'],
           'session_update'=>$result['session_update'],
         );
       }
     }
-    private static function __extendLife($id,$repoId){
+    public static function _extendLife($id,$repoId){
       global $pdo;
       $pdo
         ->$query = $pdo
@@ -36,32 +40,31 @@
         $result = $query->execute();
     }
     public static function getId($repoId,$interactorId){
-      $data = self::__get($repoId,$interactorId);
+      $data = self::_get($repoId,$interactorId);
       $id = null;
       if(!$data){
-        $id = self::__add($repoId,$interactorId);
+        $id = self::_add($repoId,$interactorId);
       }else{
-        $id = $data['id']
-        self::__extendLife($data['id'],$data['repo']);
+        $id = $data['id'];
+        self::_extendLife($data['id'],$data['repo']);
       }
       return $id;
     }
     public static function getNode($repoId,$interactorId){
-      $data = self::__get($repoId,$interactorId);
+      $data = self::_get($repoId,$interactorId);
       if(!$data){
-        $id = self::__add($repoId,$interactorId);
+        $id = self::_add($repoId,$interactorId);
         return 0;
       }else{
-        self::__extendLife($data['id'],$data['repo']);
-        $data['node']
+        self::_extendLife($data['id'],$data['repo']);
+        return $data['node'];
       }
     }
     public static function setNode($repo,$interactorId,$node){
       global $pdo;
       $id = self::getId($repo,$interactorId);
       $query = $pdo
-        ->$query = $pdo
-        ->update(array('story_node' => $node))
+        ->update(array('session_node' => $node))
         ->table('session')
         ->where('session_id', '=', $id);
       $result = $query->execute();

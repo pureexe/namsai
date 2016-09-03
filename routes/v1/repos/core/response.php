@@ -21,20 +21,28 @@ $app->post('/:user/:repo/responses',function($username,$reponame) use ($app,$con
     ));
     return ;
   }
+  if(!isset($input)){
+    $app->render(400,array(
+      'error' => array(
+        'code' => 0,
+        'message'=> 'input is require',
+      )
+    ));
+  }
   if(!isset($senderId)){
     //Not recommend to leave id blank it use to identify user
     //Will use IP for compatiable but strongly don't recommend because
     //User who use nat will get same account data
     $senderId = 'IP_'.$app->request->getIp();
   }
-  try{
-    $response = Response::get($repoId,$senderId,$input);
+  $response = Response::get($repoId,$senderId,$input);
+  if($response){
     $app->render(200,array(
       'message'=>$response
     ));
-  }catch (ErrorException $e) {
+  }else{
     $app->render(400,array(
-      error => array(
+      'error' => array(
         'code' => 0,
         'message'=> 'Return Not found',
       )
