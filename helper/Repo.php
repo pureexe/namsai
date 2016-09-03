@@ -20,7 +20,9 @@ class Repo{
       return null;
     }
   }
-
+  public static function forceGetId($username,$reponame){
+    return self::__getId($username,$reponame);
+  }
   /*
   GET repoId from /:user/:repo
   */

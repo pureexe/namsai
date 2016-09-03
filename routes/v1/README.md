@@ -3,7 +3,8 @@ version: 1
 
 //TODO: Need to implement
 - check token date issue and make blacklist after change password
-
+- story order change
+- edge order change
 ## GLOBAL ERROR message
 ERROR:
   -
@@ -330,6 +331,11 @@ PARAMETER:
   - access_token
 RESPONSE:
   - id (story's id)
+ERROR:
+  -
+    response_code: 400
+    code: 33
+    message: repo_id {{repoId}} already has order number {{order}}
 
 ###ลบหัวข้อเรื่อง
 DELETE: /repos/:user/:repo/stories/id

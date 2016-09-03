@@ -3,12 +3,15 @@
     /*
     add
     */
-    public static function add($repoId,$storyName = ''){
+    public static function add($repoId,$storyName = '',$order = null){
       global $pdo;
+      if($order == null){
+        $order = self::getMaxOrder($repoId)+1;
+      }
       $query = $pdo
-        ->insert(array('repo_id', 'story_name'))
+        ->insert(array('repo_id', 'story_name', 'story_order'))
         ->into('story')
-        ->values(array($repoId,$storyName));
+        ->values(array($repoId,$storyName,$order));
       $result = $query->execute();
       return $pdo->lastInsertId();
     }
@@ -78,6 +81,22 @@
       ->table('story')
       ->where('story_id', '=', $storyId);
     $result = $query->execute();
+  }
+  /*getMaxOrder*/
+  public static function getMaxOrder($repoId){
+    global $pdo;
+    $query = $pdo
+      ->select()
+      ->from('story')
+      ->where('repo_id','=',$repoId)
+      ->orderBy('story_order','DESC')
+      ->limit(1);
+    $result = $query->execute();
+    if($result->rowCount() == 0){
+      return null;
+    }else{
+      return $result->fetch()['story_order'];
+    }
   }
 }
 ?>

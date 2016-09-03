@@ -37,13 +37,6 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
 ส่วนจัดการ NLP
 - cilent_secret (ยังไม่รองรับเร็วๆนี้)
 ----------------------
-สนทนากับบอท
-POST: /repos/:user/:repo/response
-PARAMETER:
-  - id (interactive's id)
-  - input
-RESPONSE:
-  - message
 
 ดึงค่าตัวแปร
 GET: /repos/:user/:repo/variable/:type/:varName
