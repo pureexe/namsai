@@ -3,10 +3,9 @@ class Response{
   public static function _match($repoId,$input,$currentNode){
     global $pdo;
     if($currentNode!=0){
-      $nextList = Edge::next($currentNode);
       $query = $pdo->prepare('SELECT `node_id` FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext WHERE node_repoid = ? AND edge_nodenext IN (SELECT edge_nodenext FROM edge WHERE edge_nodeid = ?) AND ? REGEXP `node_value` ORDER BY edge_order DESC');
       $result = $query->execute(array($repoId,$currentNode,$input));
-      if($result->rowCount() == 0){
+      if($query->rowCount() == 0){
         $currentNode = 0;
       }else{
         return $result->fetch()['node_id'];
@@ -24,10 +23,11 @@ class Response{
   }
   public static function _getChild($nodeId){
     global $pdo;
+    //SELECT * FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext WHERE edge.edge_nodeid = '4' AND node_type != 'pattern'
     $query = $pdo
       ->select(array('node_id','node_type','node_value'))
-      ->from('edge')
-      ->join('node','edge.edge_nodeid','=','node.node_id')
+      ->from('node')
+      ->join('edge','node.node_id','=','edge.edge_nodenext')
       ->where('edge_nodeid','=',$nodeId)
       ->where('node_type','!=','pattern');
     $result = $query->execute();

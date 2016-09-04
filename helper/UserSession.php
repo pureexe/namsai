@@ -1,4 +1,5 @@
 <?php
+//SELECT * FROM `session` WHERE `session_interactorid` = 'IP_::1' AND`session_repoid` = '1' AND `session_update` > NOW()-300
   class UserSession{
     public static function _add($repoId,$interactorId){
       global $pdo;
@@ -15,7 +16,7 @@
         ->from('session')
         ->where('session_repoid','=',$repoId)
         ->where('session_interactorid','=',$interactorId)
-        ->where('session_update','<','DATE_SUB(NOW(),INTERVAL 5 MINUTE)');
+        ->where('session_update','>','NOW() - 300');
       $result = $query->execute();
       if($result->rowCount()==0){
         return null;
@@ -32,12 +33,11 @@
     }
     public static function _extendLife($id,$repoId){
       global $pdo;
-      $pdo
-        ->$query = $pdo
-          ->update(array('repo_id' => $repoId))
-          ->table('session')
-          ->where('session_id', '=', $id);
-        $result = $query->execute();
+      $query = $pdo
+        ->update(array('session_repoid' => $repoId))
+        ->table('session')
+        ->where('session_id', '=', $id);
+      $result = $query->execute();
     }
     public static function getId($repoId,$interactorId){
       $data = self::_get($repoId,$interactorId);
