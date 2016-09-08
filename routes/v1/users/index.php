@@ -9,5 +9,6 @@ $app->group('/users', function () use ($app,$config,$pdo) {
   //Use wildcard must be buttom
   require("getUserMe.php");
   require("getUsers.php");
+  require("getRepo.php");
 });
 ?>

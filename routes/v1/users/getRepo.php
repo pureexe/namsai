@@ -7,14 +7,26 @@ PARAMETER:
 RESPONSE:
   - repo (array)
 */
-$app->get('/:user/repos',function($username) use ($app,$config,$pdo){
+$app->get('/:users/repos',function($username) use ($app,$config,$pdo){
   $access_token = $app->request->get('access_token');
-  $app->render(400,array(
-    'error' => array(
-      'code' => 400,
-      'message' => 'Not implement yet'
-    )
-  ));
+  $userId = User::getId($username);
+  if(isset($access_token)){
+    $viewerId = jwtToUserId($access_token);
+    if(!$viewerId){
+      $app->render(401,array(
+         'error' => array(
+           'code' => 401,
+           'message' => 'access_token is invalid'
+         )
+      ));
+      return;
+    }
+  }else{
+    $viewerId = null;
+  }
+  $repoList = Repo::getList($userId,$viewerId);
+  $app->render(200,$repoList);
+
 });
 
 ?>

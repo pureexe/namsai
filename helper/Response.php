@@ -56,8 +56,18 @@ class Response{
     $output = array();
     while($child = self::_getChild($cNode)){
       $ptr = (count($child['next'])>1)?rand(0,count($child['next'])-1):0;
-      if($child['next'][$ptr]['type'] == 'response'){
-        $output[] = $child['next'][$ptr]['value'];
+      $type = $child['next'][$ptr]['type'];
+      $value = $child['next'][$ptr]['value'];
+      if($type == 'response'){
+        $output[] = self::_mergeResponse($cNode,$input,$value);
+      }else if($type == 'webhook'){
+
+      }else if($type == 'operation'){
+
+      }else if($type == 'condition'){
+
+      }else if($type == 'bookmark'){
+
       }
       $cNode = $child['next'][$ptr]['id'];
     }
@@ -67,6 +77,10 @@ class Response{
     }else{
       return $output;
     }
+  }
+  public static function _mergeResponse($cNode,$input,$value){
+    //need to implement later
+    return $value;
   }
 }
 

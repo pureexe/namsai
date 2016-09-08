@@ -273,5 +273,81 @@ class Repo{
       ->where('contributor_userid', '=', $userId);
     $query->execute();
   }
+  /*get Repo list*/
+  public static function getList($userId,$viewerId = null){
+    //need implement later but i'm very tried
+    global $pdo;
+    $output = array();
+    if($userId == $viewerId){
+      $query = $pdo
+        ->select()
+        ->from('repo')
+        ->where('repo_ownerid','=',$userId);
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $row) {
+        $out = array(
+          'id'=>$row['repo_id'],
+          'name'=>$row['repo_name'],
+          'description'=>$row['repo_description'],
+          'private'=>($row['repo_private']==1)?true:false,
+        );
+        $output[] = $out;
+      }
+    }else if($viewerId){
+      $query = $pdo
+        ->select()
+        ->from('repo')
+        ->where('repo_ownerid','=',$userId)
+        ->where('repo_private','=',0);
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $row) {
+        $out = array(
+          'id'=>$row['repo_id'],
+          'name'=>$row['repo_name'],
+          'description'=>$row['repo_description'],
+          'private'=>($row['repo_private']==1)?true:false,
+        );
+        $output[] = $out;
+      }
+      $query = $pdo
+        ->select()
+        ->from('repo')
+        ->join('contributor','contributor.contributor_repoid','=','repo.repo_id')
+        ->where('repo_ownerid','=',$userId)
+        ->where('repo_private','=',1)
+        ->where('contributor.contributor_userid','=',$viewerId);
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $row) {
+        $out = array(
+          'id'=>$row['repo_id'],
+          'name'=>$row['repo_name'],
+          'description'=>$row['repo_description'],
+          'private'=>($row['repo_private']==1)?true:false,
+        );
+        $output[] = $out;
+      }
+    }else{
+      $query = $pdo
+        ->select()
+        ->from('repo')
+        ->where('repo_ownerid','=',$userId)
+        ->where('repo_private','=',0);
+      $result = $query->execute()->fetchAll();
+      foreach ($result as $row) {
+        $out = array(
+          'id'=>$row['repo_id'],
+          'name'=>$row['repo_name'],
+          'description'=>$row['repo_description'],
+          'private'=>($row['repo_private']==1)?true:false,
+        );
+        $output[] = $out;
+      }
+    }
+    function custom_sort($a,$b) {
+        return $a['id']>$b['id'];
+    }
+    usort($output, "custom_sort");
+    return $output;
+  }
 }
 ?>
