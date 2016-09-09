@@ -11,7 +11,7 @@ RESPONSE:
 $app->post('/:user/:repo/stories/:id',function($username,$reponame,$storyId) use ($app,$config,$pdo){
   $access_token = $app->request->post('access_token');
   $name = $app->request->post("name");
-  if($access_token && $name){
+  if(isset($access_token) && isset($name)){
     $userid = jwtToUserId($access_token);
     if(!$userid){
       $app->render(401,array(
