@@ -118,5 +118,41 @@
     }
     return $output;
   }
+  /*getKnowledge
+  //TODO: must render sort by edge order
+  */
+  public static function getKnowledge($storyId){
+    global $pdo;
+    $query = $pdo->prepare("SELECT * FROM `edge` WHERE `edge_nodeid` = '0' AND edge_nodenext = ANY (SELECT `node_id` FROM `node` WHERE `node_storyid` = ?)");
+    $query->execute(array($storyId));
+    $result = $query->fetchAll();
+    if($result != false){
+      $tree = array();
+      $getTreeFromDB = function ($node_id,&$cursor) use ($pdo,&$getTreeFromDB){
+        $query = $pdo->select()->from("node")->where("node_id","=",$node_id);
+        $result = $query->execute()->fetch();
+        $cursor['id'] = $result['node_id'];
+        $cursor['type'] = $result['node_type'];
+        $cursor['value'] = $result['node_value'];
+        $query = $pdo->select()->from("edge")->where("edge_nodeid","=",$node_id);
+        $result = $query->execute();
+        if($result->rowCount()!=0){
+          $cursor['next']=array();
+          $cursor=&$cursor['next'];
+          foreach ($result->fetchAll() as $row) {
+            $cursor[] = array();
+            $getTreeFromDB($row["edge_nodenext"],$cursor[count($cursor)-1]);
+          }
+        }
+      };
+      foreach ($result as $row) {
+        $tree[] = array();
+        $getTreeFromDB($row["edge_nodenext"],$tree[count($tree)-1]);
+      }
+      return $tree;
+    }else{
+      return null;
+    }
+  }
 }
 ?>

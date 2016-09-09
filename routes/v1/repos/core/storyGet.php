@@ -35,7 +35,11 @@
         ));
         return ;
       }
-      $app->render(200,array($storyData));
+
+      if($knowledge = Story::getKnowledge($storyId)){
+        $storyData['graph'] = $knowledge;
+      }
+      $app->render(200,$storyData);
     }else{
       $app->render(400,array(
         'error' => array(
