@@ -413,3 +413,11 @@ PARAMETER:
 RESPONSE:
   - id (node_id)
   - next [id,current,next,order]
+
+###ร้บหัวข้อเรื่อง
+GET: /repos/:user/:repo/stories
+PARAMETER:
+  - access_token (optional for private repo)
+RESPONSE:
+  - id (repo's id)
+  - stories (id (story's id),name)

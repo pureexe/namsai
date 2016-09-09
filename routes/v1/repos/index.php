@@ -23,6 +23,7 @@ $app->group('/repos', function () use ($app,$config,$pdo) {
     require('core/edgeRemove.php');
     require('core/edgeGet.php');
     require('core/response.php');
+    require('core/storyList.php');
 });
 
 

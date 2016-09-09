@@ -5,7 +5,8 @@ GET: /v1/users/:user/repos
 PARAMETER:
   - access_token (require for view private repo)
 RESPONSE:
-  - repo (array)
+  - id (user_id)
+  - repos (array)
 */
 $app->get('/:users/repos',function($username) use ($app,$config,$pdo){
   $access_token = $app->request->get('access_token');
@@ -25,7 +26,10 @@ $app->get('/:users/repos',function($username) use ($app,$config,$pdo){
     $viewerId = null;
   }
   $repoList = Repo::getList($userId,$viewerId);
-  $app->render(200,$repoList);
+  $app->render(200,array(
+    "id" => $userId,
+    "repos"=>$repoList,
+  ));
 
 });
 

@@ -98,5 +98,25 @@
       return $result->fetch()['story_order'];
     }
   }
+  /*getList*/
+  public static function getList($repoId){
+    global $pdo;
+    $query = $pdo
+      ->select()
+      ->from('story')
+      ->where('story_repoid','=',$repoId)
+      ->orderBy('story_order','DESC');
+    $result = $query->execute()->fetchAll();
+    $output = array();
+    foreach ($result as $row) {
+      $out = array(
+        'id'=>$row['story_id'],
+        'name'=>$row['story_name'],
+        'order'=>$row['story_order'],
+      );
+      $output[] = $out;
+    }
+    return $output;
+  }
 }
 ?>
