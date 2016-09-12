@@ -11,17 +11,12 @@
     }
     public static function _get($repoId,$interactorId){
       global $pdo;
-      $query = $pdo
-        ->select()
-        ->from('session')
-        ->where('session_repoid','=',$repoId)
-        ->where('session_interactorid','=',$interactorId)
-        ->where('session_update','>','NOW() - 300');
-      $result = $query->execute();
-      if($result->rowCount()==0){
+      $query = $pdo->prepare("SELECT * FROM `session` WHERE `session_repoid` = ? AND `session_interactorid` = ? AND `session_update` > NOW() - INTERVAL 300 SECOND");
+      $query->execute(array($repoId,$interactorId));
+      if($query->rowCount()==0){
         return null;
       }else{
-        $result = $result->fetch();
+        $result = $query->fetch();
         return array(
           'id' => $result['session_id'],
           'repo' => $result['session_repoid'],

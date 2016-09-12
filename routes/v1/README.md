@@ -277,6 +277,7 @@ POST: /repos/:user/:repo/nodes
 PARAMETER:
   - access_token
   - story_id
+  - type
   - value
 RESPONSE:
   - id (node's id)
