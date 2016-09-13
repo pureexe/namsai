@@ -36,6 +36,26 @@ class Node{
     $query->execute();
   }
   /*
+  cut
+  difference from remove cut is cut node out with garbage collector
+  */
+  public static function cut($nodeId){
+    global $pdo;
+    //BFS to popstack and remove edge
+    Edge::remvoeNextTo($nodeId);
+    $queue = array($nodeId);
+    while($current = array_shift($queue)){
+      $next = Edge::next($current);
+      if(isset($next['next'])){
+        foreach ($next['next'] as $obj) {
+          Edge::remove($current,$obj);
+          array_push($queue,$obj);
+        }
+      }
+      Node::remove($current);
+    }
+  }
+  /*
   isExist node
   */
   public static function isExist($nodeId){

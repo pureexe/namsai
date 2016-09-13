@@ -18,25 +18,35 @@
         ->where('edge_nodenext','=',$nNode);
       $query->execute();
     }
-    /*
     public static function next($cNode){
       global $pdo;
       $query = $pdo
         ->select()
         ->from('edge')
-        ->where('node_id', '=', $cNode)
-        ->where('node_next','=',$nNode);
-      $result = $query->execute();
+        ->where('edge_nodeid', '=', $cNode);
       $result = $query->execute()->fetchAll();
-      $EdgeData = array('current'=>$cNode);
+      $EdgeData = array('id'=>$cNode);
       $nextNode = array();
       foreach ($result as $row) {
-        $nextNode[] = $row['node_next'];
+        $nextNode[] = $row['edge_nodenext'];
       }
-      $EdgeData['next']=$nextNode;
+      if(count($result)>0){
+        $EdgeData['next']=$nextNode;
+      }
       return $EdgeData;
     }
+    /*
+    remvoeNextTo
+    remove all edge that link to this PARAMETER
     */
+    public static function remvoeNextTo($nNode){
+      global $pdo;
+      $query = $pdo
+        ->delete()
+        ->from('edge')
+        ->where('edge_nodenext','=',$nNode);
+      $query->execute();
+    }
     public static function get($cNode,$nNode = null){
       global $pdo;
       if($nNode!=null){

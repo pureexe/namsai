@@ -9,7 +9,8 @@ RESPONSE:
 */
 $app->delete('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use ($app,$config,$pdo){
   $access_token = $app->request->delete('access_token');
-  if($access_token){
+  $cut = $app->request->delete('cut');
+  if(isset($access_token)){
     $userid = jwtToUserId($access_token);
     if(!$userid){
       $app->render(401,array(
@@ -21,7 +22,11 @@ $app->delete('/:user/:repo/nodes/:id',function($username,$reponame,$nodeId) use 
     }else{
       if(Repo::getId($username,$reponame,$userid)){
         if(Node::isExist($nodeId)){
-          Node::remove($nodeId);
+          if(isset($cut) && $cut == "false"){
+            Node::remove($nodeId);
+          }else{
+            Node::cut($nodeId);
+          }
           $app->render(200,array(
             'id' => intval($nodeId),
           ));
