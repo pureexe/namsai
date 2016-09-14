@@ -154,5 +154,38 @@
       return null;
     }
   }
+  /*
+  cut
+  like node cut just remove story and wipeout garbage
+  */
+  public static function cut($storyId){
+    $nodes = self::getRoot($storyId)['next'];
+    foreach ($nodes as $cNode) {
+      Node::cut($cNode);
+    }
+    self::remove($storyId);
+  }
+  /*
+  getRoot
+  */
+  public static function getRoot($storyId){
+    global $pdo;
+    $query = $pdo
+      ->select(array('node_id'))
+      ->from('node')
+      ->join('edge','node.node_id','=','edge.edge_nodenext')
+      ->where('node_storyid','=',$storyId)
+      ->where('edge_nodeid','=','0');
+    $result = $query->execute();
+    $output = array('id' => $storyId);
+    $out = array();
+    if($result->rowCount() != 0){
+      foreach ($result->fetchAll() as $row) {
+        $out[] = $row['node_id'];
+      }
+      $output['next'] = $out;
+    }
+    return $output;
+  }
 }
 ?>

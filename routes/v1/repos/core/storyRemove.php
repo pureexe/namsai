@@ -10,6 +10,7 @@ RESPONSE:
 */
 $app->delete('/:user/:repo/stories/:id',function($username,$reponame,$storyId) use ($app,$config,$pdo){
   $access_token = $app->request->delete('access_token');
+  $cut = $app->request->delete('cut');
   if($access_token){
     $userid = jwtToUserId($access_token);
     if(!$userid){
@@ -22,7 +23,11 @@ $app->delete('/:user/:repo/stories/:id',function($username,$reponame,$storyId) u
     }else{
       if(Repo::getId($username,$reponame,$userid)){
         if(Story::isExist($storyId)){
-          Story::remove($storyId);
+          if(isset($cut) && $cut == "false"){
+            Story::remove($storyId);
+          }else{
+            Story::cut($storyId);
+          }
           $app->render(200,array(
             'id' => intval($storyId),
           ));
