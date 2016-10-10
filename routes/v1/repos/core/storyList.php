@@ -26,15 +26,6 @@
     }
     if($repoId = Repo::getId($username,$reponame,$userid)){
       $storyData = Story::getList($repoId);
-      if(!$storyData){
-        $app->render(400,array(
-          'error' => array(
-            'code' => 27,
-            'message' => 'story_id '.$storyId.' isn\'t exist'
-          )
-        ));
-        return ;
-      }
       $app->render(200,array(
         'id'=>$repoId,
         'stories' => $storyData,

@@ -159,9 +159,11 @@
   like node cut just remove story and wipeout garbage
   */
   public static function cut($storyId){
-    $nodes = self::getRoot($storyId)['next'];
-    foreach ($nodes as $cNode) {
-      Node::cut($cNode);
+    $nodes = self::getRoot($storyId);
+    if(isset($nodes['next'])){
+      foreach ($nodes['next'] as $cNode) {
+        Node::cut($cNode);
+      }
     }
     self::remove($storyId);
   }

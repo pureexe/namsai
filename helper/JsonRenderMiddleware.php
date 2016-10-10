@@ -14,7 +14,7 @@ class JsonRenderMiddleware extends \Slim\Middleware {
         });
         // Generic error handler
         $app->error(function (Exception $e) use ($app) {
-            if ($e->getCode()) {
+            if ($e->getCode() && $e->getCode() >= 400) {
                 $errorCode = $e->getCode();
             } else {
                 $errorCode = 500;
@@ -40,15 +40,14 @@ class JsonRenderMiddleware extends \Slim\Middleware {
         });
         // Handle Empty response body
         $app->hook('slim.after.router', function () use ($app) {
-            //Fix sugested by: https://github.com/bdpsoft
             //Will allow download request to flow
             if($app->response()->header('Content-Type')==='application/octet-stream'){
                 return;
             }
             if (strlen($app->response()->body()) == 0) {
-                $app->render(500,array(
+                $app->render(204,array(
                     'error' => array(
-                      'code' => 500,
+                      'code' => 204,
                       'message'=> 'Empyty Response'
                     )
                 ));

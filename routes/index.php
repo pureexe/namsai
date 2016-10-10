@@ -8,7 +8,7 @@
   $app->get('/test', function() use ($app) {
     $box = array();
     $app->render(200,array(
-      'data'=>Story::getRoot(53),
+      'data'=>Story::getRoot(25),
     ));
   });
   require('v1/index.php');
