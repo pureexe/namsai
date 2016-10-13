@@ -1,9 +1,13 @@
 <?php
 class Response{
+  /*
+  _match
+  use for travel node
+  */
   public static function _match($repoId,$input,$currentNode){
     global $pdo;
     if($currentNode!=0){
-      $query = $pdo->prepare('SELECT `node_id` FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext WHERE node_repoid = ? AND edge_nodenext IN (SELECT edge_nodenext FROM edge WHERE edge_nodeid = ?) AND ? REGEXP `node_value` ORDER BY edge_order DESC');
+      $query = $pdo->prepare('SELECT `node_id` FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext WHERE node_repoid = ? AND edge_nodenext IN (SELECT edge_nodenext FROM edge WHERE edge_nodeid = ?) AND ? REGEXP `node_pattern` ORDER BY edge_order DESC');
       $result = $query->execute(array($repoId,$currentNode,$input));
       if($query->rowCount() == 0){
         $currentNode = 0;
@@ -12,7 +16,7 @@ class Response{
       }
     }
     if($currentNode == 0){
-      $query = $pdo->prepare('SELECT `node_id` FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext JOIN story ON node.node_storyid = story.story_id WHERE node_repoid = ? AND edge_nodeid = 0 AND ? REGEXP `node_value` ORDER BY story_order DESC');
+      $query = $pdo->prepare('SELECT `node_id` FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext JOIN story ON node.node_storyid = story.story_id WHERE node_repoid = ? AND edge_nodeid = 0 AND ? REGEXP `node_pattern` ORDER BY story_order DESC');
       $result = $query->execute(array($repoId,$input));
       if($query->rowCount() == 0){
         return null;

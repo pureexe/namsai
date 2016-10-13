@@ -25,7 +25,7 @@ class JsonRenderMiddleware extends \Slim\Middleware {
             $app->render($errorCode,array(
                 'error'=>array(
                   'code' =>500,
-                  'message' => $message
+                  'message' => $message . ' in ' . $e->getFile() . ' at line ' . $e->getLine()
                 )
             ));
         });

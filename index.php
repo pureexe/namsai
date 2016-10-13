@@ -17,6 +17,7 @@
   require("helper/Edge.php");
   require("helper/UserSession.php");
   require("helper/Response.php");
+  require("helper/IrinLang.php");
   require("routes/index.php");
   $app->run();
 ?>
