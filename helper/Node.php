@@ -4,11 +4,18 @@ class Node{
   add Node
   $Data = array($storyid,$type,$value);
   */
-  public static function add($Data){
+  public static function add($storyId,$type,$value){
     global $pdo;
-    $query = $pdo->insert(array('node_storyid','node_type','node_value'))
-              ->into('node')
-              ->values($Data);
+    $repoId = Story::getRepoId($storyId);
+    if($type!="pattern"){
+      $query = $pdo->insert(array('node_repoid','node_storyid','node_type','node_value'))
+                ->into('node')
+                ->values(array($repoId,$storyId,$type,$value));
+    }else{
+      $query = $pdo->insert(array('node_repoid','node_storyid','node_type','node_value','node_pattern'))
+                ->into('node')
+                ->values(array($repoId,$storyId,$type,$value,IrinLang::toRegex($value)));
+    }
     $query->execute();
     return $pdo->lastInsertId();
   }
@@ -17,10 +24,20 @@ class Node{
   */
   public static function update($nodeId,$value){
     global $pdo;
-    $query = $pdo
-      ->update(array('node_value' => $value))
-      ->table('node')
-      ->where('node_id', '=', $nodeId);
+    if(self::getType($nodeId) != 'pattern'){
+      $query = $pdo
+        ->update(array('node_value' => $value))
+        ->table('node')
+        ->where('node_id', '=', $nodeId);
+    }else{
+      $query = $pdo
+        ->update(array(
+            'node_value' => $value,
+            'node_pattern'=> IrinLang::toRegex($value)
+          ))
+        ->table('node')
+        ->where('node_id', '=', $nodeId);
+    }
     $result = $query->execute();
   }
   /*
@@ -91,6 +108,22 @@ class Node{
         $out['story']=$story;
       }
       return $out;
+    }
+  }
+  /*
+  getType of node
+  */
+  public static function getType($nodeId){
+    global $pdo;
+    $query = $pdo
+      ->select(array('node_type'))
+      ->from('node')
+      ->where('node_id','=',$nodeId);
+    $result = $query->execute();
+    if($result->rowCount() == 0){
+      return null;
+    }else{
+      return $result->fetch()['node_type'];
     }
   }
 }

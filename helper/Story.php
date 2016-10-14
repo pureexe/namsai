@@ -43,7 +43,7 @@
       $query = $pdo
         ->select()
         ->from('story')
-        ->where('story_id','=',$stroyId);
+        ->where('story_id','=',$storyId);
       $result = $query->execute();
       if($result->rowCount()==0){
         return null;

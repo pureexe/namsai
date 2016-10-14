@@ -29,7 +29,7 @@ $app->post('/:user/:repo/nodes',function($username,$reponame) use ($app,$config,
       ));
     }else{
       if(Repo::getId($username,$reponame,$userid)){
-        $result = Node::add(array($storyid,$type,$value));
+        $result = Node::add($storyid,$type,$value);
         $app->render(200,array(
           'id' => intval($result),
         ));
@@ -46,7 +46,7 @@ $app->post('/:user/:repo/nodes',function($username,$reponame) use ($app,$config,
     $app->render(400,array(
        'error' => array(
          'code' => 23,
-         'message' => 'storyid,type and access_token are require'
+         'message' => 'story_id,type and access_token are require'
        )
     ));
   }

@@ -6,15 +6,8 @@
     ));
   });
   $app->get('/test', function() use ($app) {
-    $input = $app->request->get('input');
     $app->render(200,array(
-      'data'=>IrinLang::toRegex($input),
-    ));
-  });
-  $app->get('/test2', function() use ($app) {
-    $expression = "hello";
-    $app->render(200,array(
-      'data'=>trim(" กรา บ ส วัสดี   ")
+      'data'=>Response::test(1,'สวัสดี'),
     ));
   });
   require('v1/index.php');
