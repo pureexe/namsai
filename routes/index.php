@@ -6,9 +6,8 @@
     ));
   });
   $app->get('/test', function() use ($app) {
-    $input = $app->request->get('input');
     $app->render(200,array(
-      'data'=>IrinLang::escape("\\*"),
+      'data'=>is_numeric("1.1ก"),
     ));
   });
   require('v1/index.php');

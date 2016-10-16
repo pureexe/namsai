@@ -4,7 +4,7 @@ class Response{
   _match
   use for travel node
   */
-  public static function _match($repoId,$input,$currentNode){
+  public static function match($repoId,$input,$currentNode){
     global $pdo;
     if($currentNode!=0){
       $query = $pdo->prepare('SELECT `node_id` FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext WHERE node_repoid = ? AND edge_nodenext IN (SELECT edge_nodenext FROM edge WHERE edge_nodeid = ?) AND ? REGEXP `node_pattern` ORDER BY edge_order DESC');
@@ -25,7 +25,7 @@ class Response{
       }
     }
   }
-  public static function _getChild($nodeId){
+  public static function getChild($nodeId){
     global $pdo;
     //SELECT * FROM `node` JOIN edge ON node.node_id = edge.edge_nodenext WHERE edge.edge_nodeid = '4' AND node_type != 'pattern'
     $query = $pdo
@@ -51,19 +51,37 @@ class Response{
       return $output;
     }
   }
+  /*
+  getInputMatch to extract data from input
+  */
+  public static function getInputMatch($pattern,$input){
+    mb_ereg_search_init($input);
+    $data = mb_ereg_search_regs($pattern);
+    $length = count($data);
+    for($i=0;$i<$length;$i++){
+      $data[$i] = trim($data[$i]);
+    }
+    return $data;
+  }
   public static function get($repoId,$userId,$input){
     $cNode = UserSession::getNode($repoId,$userId);
-    $cNode = self::_match($repoId,$input,$cNode);
+    $cNode = self::match($repoId,$input,$cNode);
     if(!$cNode){
       return null;
     }
+    $cPattern = Node::getPattern($cNode);
+    $inputMatch = self::getInputMatch($cPattern,$input);
     $output = array();
-    while($child = self::_getChild($cNode)){
+    while(true){
+      $child = self::getChild($cNode);
+      if($child == null){
+        break;
+      }
       $ptr = (count($child['next'])>1)?rand(0,count($child['next'])-1):0;
       $type = $child['next'][$ptr]['type'];
       $value = $child['next'][$ptr]['value'];
       if($type == 'response'){
-        $output[] = self::_mergeResponse($cNode,$input,$value);
+        $output[] = self::mergeResponse($value,$inputMatch);
       }else if($type == 'webhook'){
 
       }else if($type == 'operation'){
@@ -82,9 +100,33 @@ class Response{
       return $output;
     }
   }
-  public static function _mergeResponse($cNode,$input,$value){
-    //need to implement later
-    return $value;
+  public static function mergeResponse($expression,$data){
+    $i = 0;
+    $length = mb_strlen($expression);
+    $buffer = '';
+    $front = 0;
+    $isBuffering = false;
+    while($i<$length){
+      $ch = mb_substr($expression,$i,1);
+      if($ch == '{'){
+        $front = $i;
+        $isBuffering = true;
+        $buffer = '';
+      }else if($ch == '}'){
+        $exFront = mb_substr($expression,0,$front);
+        $exRear = mb_substr($expression,$i+1,$length-$front-1);
+        $exMiddle = '';
+        if(is_numeric($buffer)){
+          $exMiddle = $data[intval($buffer)];
+        }
+        //need support user/session/app/webhook later
+        $expression = $exFront.$exMiddle.$exRear;
+      }else if($isBuffering == true){
+        $buffer.=$ch;
+      }
+      $i++;
+    }
+    return $expression;
   }
 }
 

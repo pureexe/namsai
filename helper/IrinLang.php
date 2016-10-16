@@ -19,7 +19,7 @@
           while(mb_substr($expression,$i+$j,1)!="]"){
             $j++;
           }
-          $optionals = explode("\\|",mb_substr($expression,$i+2,$j-3));
+          $optionals = mb_split("\\|",mb_substr($expression,$i+2,$j-3));
           if($i+$j<mb_strlen($expression) && mb_substr($expression,$i+$j+1,1) == " "){
             $k=0;
             while($k<mb_strlen($expression)){
@@ -48,7 +48,7 @@
           while(mb_substr($expression,$i+$j,1) != ")"){
             $j++;
           }
-          $optionals = explode("\\|",mb_substr($expression,$i+2,$j-3));
+          $optionals = mb_split("\\|",mb_substr($expression,$i+2,$j-3));
           $regularExp .= "(".join('|', $optionals).")";
           $i+=$j+1;
         }else{
@@ -66,5 +66,6 @@
     public static function escape($expression){
       return preg_quote($expression);
     }
+  
   }
 ?>

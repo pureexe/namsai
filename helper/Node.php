@@ -126,5 +126,21 @@ class Node{
       return $result->fetch()['node_type'];
     }
   }
+  /*
+  getType of node
+  */
+  public static function getPattern($nodeId){
+    global $pdo;
+    $query = $pdo
+      ->select(array('node_pattern'))
+      ->from('node')
+      ->where('node_id','=',$nodeId);
+    $result = $query->execute();
+    if($result->rowCount() == 0){
+      return null;
+    }else{
+      return $result->fetch()['node_pattern'];
+    }
+  }
 }
 ?>
