@@ -40,7 +40,7 @@
             array_unshift($optionals,"");
           }
           $optionals = join('|', $optionals);
-          $optionals = preg_replace("/\\\\\\*/","(?:.+)",$optionals);
+          $optional = mb_ereg_replace('\\\\\\*','(?:.+)',$optionals);
           $regularExp.="(?:".$optionals.")";
           $i+=$j+1;
         }else if($i < mb_strlen($expression)-1 && mb_substr($expression,$i,2) == "\\("){
@@ -56,7 +56,7 @@
           $i++;
         }
       }
-      $regularExp = preg_replace("/".self::escape("\\*")."/","(.+)",$regularExp);
+      $regularExp = mb_ereg_replace('\\\\\\*','(.+)',$regularExp);
       return "^".$regularExp."$";
     }
     /*
