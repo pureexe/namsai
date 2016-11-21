@@ -83,7 +83,9 @@ class Response{
       if($type == 'response'){
         $output[] = self::mergeResponse($value,$inputMatch);
       }else if($type == 'webhook'){
-
+        $webhook = Webhook::hook($value);
+        $sessionId = UserSession::getId($reopId,$userId);
+        Variable::set('hook',$repoId,$userId,$sessionId,$webhook);
       }else if($type == 'operation'){
 
       }else if($type == 'condition'){
