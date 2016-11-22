@@ -1,7 +1,23 @@
 <?php
-  $app->group('/v1', function () use ($app,$config,$pdo) {
-    require('auth.php');
-    require('users/index.php');
-    require('repos/index.php');
-  });
+$app->group('/v1', function () use ($app,$config) {
+  require('auth/Login.php');
+  require('contributors/ContributorAdd.php');
+  require('contributors/ContributorDelete.php');
+  require('contributors/ContributorGet.php');
+  require('edges/EdgeAdd.php');
+  require('edges/EdgeDelete.php');
+  require('edges/EdgeGet.php');
+  require('edges/EdgeUpdate.php');
+  require('nodes/NodeAdd.php');
+  require('nodes/NodeDelete.php');
+  require('nodes/NodeGet.php');
+  require('nodes/NodeUpdate.php');
+  require('repos/RepoAdd.php');
+  require('repos/RepoDelete.php');
+  require('repos/RepoGet.php');
+  require('repos/RepoUpdate.php');
+  require('users/UserAdd.php');
+  require('users/UserGet.php');
+  require('users/UserUpdate.php');
+});
 ?>

@@ -1,7 +1,8 @@
 <?php
     $config = array(
       'db' => array(
-        'host' => 'mysql:host=localhost;dbname=namsai;charset=utf8',
+        'name' => 'namsai',
+        'host' => 'localhost',
         'user' => 'root',
         'password'=> ''
       ),

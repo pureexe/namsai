@@ -1,7 +1,0 @@
-<?php
-$app->group('/node', function () use ($app,$config,$pdo) {
-  require("add.php");
-  require("remove.php");
-  require("update.php");
-});
-?>
