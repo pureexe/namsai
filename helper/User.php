@@ -10,24 +10,62 @@ class User
     $data = array(
       'username' => $username,
       'email' => $email,
-      'password' => $hash,
+      'hash' => $hash,
       'name' => $name
     );
     $userId = $database->insert('user',$data);
     return $userId;
   }
-  public function update()
+  public function update($data,$id)
   {
-
+    global $database;
+    if(is_numeric($id)){
+      $where = array('id' => $id);
+    }else{
+      $where = array('username' => $id);
+    }
+    $database->update('user', $data, $where);
   }
   public function get($id)
   {
     global $database;
-    if(is_numeric($id))
-    {
-      $data = $database->get('user',array('name','username','bio'),array('id'=>1));
-      return $data;
+    if(is_numeric($id)){
+      $where = array('id' => $id);
+    }else{
+      $where = array('username' => $id);
     }
+    $fields = array('id','name','username','email','bio');
+    $data = $database->get('user',$fields,$where);
+    return $data;
   }
+  /**
+  * check malform username
+  **/
+  public function isUsernameMalform($username)
+  {
+    if(is_numeric($username)){
+      return true;
+    }
+    return false;
+  }
+  public function isEmailExist($email)
+  {
+    global $database;
+    $data = array('email'=>$email);
+    $count = $database->count("user",$data);
+    return ($count>0)?true:false;
+  }
+  public function isUsernameExist($username)
+  {
+    global $database;
+    $data = array('username'=>$username);
+    $count = $database->count("user",$data);
+    return ($count>0)?true:false;
+  }
+  public static function isReserved($username){
+    global $config;
+    return (array_search($username, $config['reserved_username']) !== false)?true:false;
+  }
+
 }
 ?>

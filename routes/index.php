@@ -6,9 +6,12 @@
     ));
   });
   $app->get('/test', function() use ($app,$database) {
-    $app->render(200,array(
-      'message' => User::get(1)
-    ));
+    $database->insert('user', [
+        'email' => 'box@pureapp.in.th',
+        'username' => 'box',
+        'name' => "Injection '",
+        'bio' => ['en', 'fr', 'jp', 'cn']
+    ]);
   });
   require('v1/index.php');
 ?>

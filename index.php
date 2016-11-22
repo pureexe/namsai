@@ -11,6 +11,7 @@
   require("helper/util/database.php");
   require("helper/util/jwt.php");
 
+  require("helper/ErrorCode.php");
   require("helper/User.php");
   // Enjoy
   /*require("helper/jwt.php");
