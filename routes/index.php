@@ -6,8 +6,8 @@
     ));
   });
   $app->get('/test', function() use ($app,$database) {
-    $database->insert('user', [
-        'email' => 'box@pureapp.in.th',
+    $database->get('user', [
+        'username' => 'pureexe',
         'username' => 'box',
         'name' => "Injection '",
         'bio' => ['en', 'fr', 'jp', 'cn']

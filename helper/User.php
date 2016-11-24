@@ -1,5 +1,7 @@
 <?php
-//@user
+/**
+* @class user
+**/
 class User
 {
   public function add($username,$email,$password,$name)

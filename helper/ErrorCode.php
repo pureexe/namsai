@@ -18,7 +18,11 @@ class ErrorCode
   }
   function build($code,$attach = null)
   {
-    if($code == 4){
+    if($code == 1){
+      return 'access_token require';
+    }else if($code == 2){
+      return 'access_token is invalid';
+    }else if($code == 4){
       return 'parameter name,email,username and password is require for register';
     }else if($code == 5){
       return 'this email has been already register';
@@ -30,6 +34,18 @@ class ErrorCode
       return 'this username is malform';
     }else if($code == 9){
       return 'user not found';
+    }else if($code == 10){
+      return 'repo not found';
+    }else if($code == 11){
+      return 'parameter name is require for create new repo';
+    }else if($code == 12){
+      return 'this repo name is already exist on server';
+    }else if($code == 14){
+      return 'this repo name is reserved by system';
+    }else if($code == 15){
+      return 'user and password is require for authenization';
+    }else if($code == 16){
+      return 'user or password is mismatch';
     }else{
       return null;
     }
