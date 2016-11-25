@@ -26,6 +26,11 @@ class User
     }else{
       $where = array('username' => $id);
     }
+    if(isset($data['password'])){
+      $passwordHasher = new Pentagonal\Phpass\PasswordHash(8,false);
+      $data['hash'] = $passwordHasher->hashPassword($password);
+      unset($data['password']);
+    }
     return $database->update('user', $data, $where);
   }
   public function get($id)
@@ -38,6 +43,9 @@ class User
     }
     $fields = array('id','name','username','email','bio');
     $data = $database->get('user',$fields,$where);
+    if(!$data){
+      return null;
+    }
     $data['id'] = intval($data['id']);
     return $data;
   }

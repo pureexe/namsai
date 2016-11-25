@@ -1,11 +1,15 @@
 <?php
 /*
-get repo info
-POST: /v1/repos
+get repo owner info
+GET: /v1/repos/owner
 PARAMETER:
   - (NONE)
 RESPONSE:
   - id
+  - name
+  - username
+  - email
+  - bio
 */
 $app->get('/repos/:name/owner',function($repoName) use ($app){
   $repoData = Repo::get($repoName);

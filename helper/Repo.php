@@ -15,15 +15,16 @@ class Repo
     $repoId = $database->insert('repo',$data);
     return $repoId;
   }
-  public function update($data,$id)
+  public function update($id,$data)
   {
     global $database;
     if(is_numeric($id)){
       $where = array('id' => $id);
     }else{
-      $where = array('username' => $id);
+      $where = array('name' => $id);
     }
-    $database->update('user', $data, $where);
+    $output = $database->update('repo', $data, $where);
+    return $output;
   }
   public function get($id)
   {
@@ -35,6 +36,9 @@ class Repo
     }
     $fields = array('id','name','description','owner');
     $data = $database->get('repo',$fields,$where);
+    if(!$data){
+      return null;
+    }
     $data['id'] = intval($data['id']);
     return $data;
   }
