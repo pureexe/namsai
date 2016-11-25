@@ -18,7 +18,7 @@ class User
     $userId = $database->insert('user',$data);
     return $userId;
   }
-  public function update($data,$id)
+  public function update($id,$data)
   {
     global $database;
     if(is_numeric($id)){
@@ -26,7 +26,7 @@ class User
     }else{
       $where = array('username' => $id);
     }
-    $database->update('user', $data, $where);
+    return $database->update('user', $data, $where);
   }
   public function get($id)
   {
@@ -38,6 +38,7 @@ class User
     }
     $fields = array('id','name','username','email','bio');
     $data = $database->get('user',$fields,$where);
+    $data['id'] = intval($data['id']);
     return $data;
   }
   /**

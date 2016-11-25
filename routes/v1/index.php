@@ -15,6 +15,7 @@ $app->group('/v1', function () use ($app,$config) {
   require('repos/RepoAdd.php');
   require('repos/RepoDelete.php');
   require('repos/RepoGet.php');
+  require('repos/RepoOwner.php');
   require('repos/RepoUpdate.php');
   require('users/UserAdd.php');
   require('users/UserGet.php');

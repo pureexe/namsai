@@ -1,0 +1,75 @@
+<?php
+/**
+* @class Repo
+**/
+class Repo
+{
+  public function add($ownerId,$name,$description)
+  {
+    global $database;
+    $data = array(
+      'owner'=>$ownerId,
+      'name'=>$name,
+      'description'=>$description
+    );
+    $repoId = $database->insert('repo',$data);
+    return $repoId;
+  }
+  public function update($data,$id)
+  {
+    global $database;
+    if(is_numeric($id)){
+      $where = array('id' => $id);
+    }else{
+      $where = array('username' => $id);
+    }
+    $database->update('user', $data, $where);
+  }
+  public function get($id)
+  {
+    global $database;
+    if(is_numeric($id)){
+      $where = array('id' => $id);
+    }else{
+      $where = array('name' => $id);
+    }
+    $fields = array('id','name','description','owner');
+    $data = $database->get('repo',$fields,$where);
+    $data['id'] = intval($data['id']);
+    return $data;
+  }
+  public function delete($id)
+  {
+    global $database;
+    if(is_numeric($id)){
+      $where = array('id' => $id);
+    }else{
+      $where = array('name' => $id);
+    }
+    $data = $database->delete('repo',$where);
+    return $data;
+  }
+  /**
+  * check malform username
+  **/
+  public function isUsernameMalform($username)
+  {
+    if(is_numeric($username)){
+      return true;
+    }
+    return false;
+  }
+  public function isExist($name)
+  {
+    global $database;
+    $data = array('name'=>$name);
+    $count = $database->count("repo",$data);
+    return ($count>0)?true:false;
+  }
+  public static function isReserved($username){
+    global $config;
+    return (array_search($username, $config['reserved_username']) !== false)?true:false;
+  }
+
+}
+?>

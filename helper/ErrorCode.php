@@ -22,6 +22,8 @@ class ErrorCode
       return 'access_token require';
     }else if($code == 2){
       return 'access_token is invalid';
+    }else if($code == 3){
+      return 'you don\'t have permission.';
     }else if($code == 4){
       return 'parameter name,email,username and password is require for register';
     }else if($code == 5){

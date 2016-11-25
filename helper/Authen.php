@@ -34,7 +34,7 @@ class Authen
     }
     return null;
   }
-  public function getId()
+  public function getId($token)
   {
     require(__DIR__.'/../config.php');
     try {

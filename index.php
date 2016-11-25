@@ -13,6 +13,7 @@
 
   require("helper/ErrorCode.php");
   require("helper/Authen.php");
+  require("helper/Repo.php");
   require("helper/User.php");
   // Enjoy
   /*require("helper/jwt.php");
