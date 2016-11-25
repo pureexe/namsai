@@ -1,9 +1,6 @@
 <?php
 $app->group('/v1', function () use ($app,$config) {
   require('auth/Login.php');
-  require('contributors/ContributorAdd.php');
-  require('contributors/ContributorDelete.php');
-  require('contributors/ContributorGet.php');
   require('edges/EdgeAdd.php');
   require('edges/EdgeDelete.php');
   require('edges/EdgeGet.php');
