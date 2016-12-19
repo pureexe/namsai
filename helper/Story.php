@@ -88,7 +88,11 @@ class Story
   }
   public static function getList($repoId){
     global $database;
-    $data = $database->select('story',array('id','name','priority'));
+    $where = array('ORDER'=>array(
+      'priority' => 'DESC'
+    ));
+    $fields = array('id','name','priority');
+    $data = $database->select('story',$fields,$where);
     foreach ($data as $key => $value) {
       $data[$key]['id'] = intval($data[$key]['id']) ;
       $data[$key]['order'] = intval($data[$key]['priority']);
