@@ -6,10 +6,15 @@
     ));
   });
   $app->get('/test', function() use ($app,$database) {
-    $data = $database->select('repo',array('id','name','owner'),array("AND"=>array('id'=>1,'owner'=>1)));
-    $app->render(200,array(
-      'message' => $data
+    $data = $database->select('story',array('id','name','repoid'),array(
+      'AND'=>array(
+          'id'=>11,
+          'repoid'=>1,
+      )
     ));
+    print_r($data);
+    exit();
+    $app->render(200,$data);
   });
   require('v1/index.php');
 ?>

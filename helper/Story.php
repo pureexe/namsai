@@ -17,7 +17,17 @@ class Story
     $storyId = $database->insert('story',$data);
     return intval($storyId);
   }
-  public static function get($stroyId){
+  public static function get($storyId){
+    global $database;
+    $data = $database->get(
+      'story',
+      array('id','name','repoid','priority(order)'),
+      array('id'=>$storyId)
+    );
+    $data['id']=intval($data['id']);
+    $data['repoid']=intval($data['repoid']);
+    $data['order']=intval($data['order']);
+    return $data;
   }
   public static function getRepoId($storyId){
   }
@@ -37,6 +47,23 @@ class Story
 
   public static function update($storyId,$name){
 
+  }
+  /*
+  isExist: check storyId is exist
+  if pass repoId it mean isExist $storyId in $repoId (Check for prevent cross query)
+  */
+  public static function isExist($storyId,$repoId = null){
+    global $database;
+    if($repoId != null){
+      return $database->has('story',array(
+        'AND'=>array(
+            'id'=>$storyId,
+            'repoid'=>$repoId,
+        )
+      ));
+    }else{
+      return $database->has('story',array('id'=>$storyId));
+    }
   }
   /*
   getMaxOrder: when you add new story

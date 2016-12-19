@@ -54,6 +54,8 @@ class ErrorCode
       return 'user not have permission to read this repo';
     }else if($code == 19){
       return 'this story order is already exist';
+    }else if($code == 20){
+      return 'this story isn\'t belong to this repo';
     }else{
       return null;
     }
