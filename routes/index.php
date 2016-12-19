@@ -6,12 +6,10 @@
     ));
   });
   $app->get('/test', function() use ($app,$database) {
-    $database->get('user', [
-        'username' => 'pureexe',
-        'username' => 'box',
-        'name' => "Injection '",
-        'bio' => ['en', 'fr', 'jp', 'cn']
-    ]);
+    $data = $database->select('repo',array('id','name','owner'),array("AND"=>array('id'=>1,'owner'=>1)));
+    $app->render(200,array(
+      'message' => $data
+    ));
   });
   require('v1/index.php');
 ?>

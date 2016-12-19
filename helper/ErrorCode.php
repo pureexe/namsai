@@ -48,6 +48,12 @@ class ErrorCode
       return 'user and password is require for authenization';
     }else if($code == 16){
       return 'user or password is mismatch';
+    }else if($code == 17){
+      return 'user not have permission to write this repo';
+    }else if($code == 18){
+      return 'user not have permission to read this repo';
+    }else if($code == 19){
+      return 'this story order is already exist';
     }else{
       return null;
     }

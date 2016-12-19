@@ -17,5 +17,6 @@ $app->group('/v1', function () use ($app,$config) {
   require('users/UserAdd.php');
   require('users/UserGet.php');
   require('users/UserUpdate.php');
+  require('story/StoryAdd.php');
 });
 ?>

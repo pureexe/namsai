@@ -74,6 +74,36 @@ class Repo
     global $config;
     return (array_search($username, $config['reserved_username']) !== false)?true:false;
   }
+  public function hasWritePermission($repoId,$user){
+    global $database;
+    $userId = 0;
+    if(is_numeric($user)){
+      $userId = intval($user);
+    }else{
+      $userId = intval(User::get($user)['id']);
+    }
+    return $database->has('repo',array(
+      'AND'=>array(
+        'id'=>$repoId,
+        'owner'=>$userId
+      )
+    ));
+  }
+  public function hasReadPermission($repoId,$user){
+    global $database;
+    $userId = 0;
+    if(is_numeric($user)){
+      $userId = intval($user);
+    }else{
+      $userId = intval(User::get($user)['id']);
+    }
+    return $database->has('repo',array(
+      'AND'=>array(
+        'id'=>$repoId,
+        'owner'=>$userId
+      )
+    ));
+  }
 
 }
 ?>
