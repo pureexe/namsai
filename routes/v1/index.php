@@ -20,5 +20,6 @@ $app->group('/v1', function () use ($app,$config) {
   require('story/StoryAdd.php');
   require('story/StoryGet.php');
   require('story/StoryList.php');
+  require('story/StoryUpdate.php');
 });
 ?>

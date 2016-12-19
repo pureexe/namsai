@@ -29,7 +29,15 @@ class Story
     $data['order']=intval($data['order']);
     return $data;
   }
+  /*
+  getRepoId
+  */
   public static function getRepoId($storyId){
+    global $database;
+    $repoId = $database->get('story','repoid',array(
+      'id'=>$storyId
+    ));
+    return ($repoId)?intval($repoId):null;
   }
   /*
   remove: just remove story record but keep store other data
@@ -44,9 +52,12 @@ class Story
   public static function delete($storyId){
   }
 
-
+  /*
+  update: story name
+  */
   public static function update($storyId,$name){
-
+    global $database;
+    $database->update('story',array('name'=>$name),array('id'=>$storyId));
   }
   /*
   isExist: check storyId is exist
@@ -88,9 +99,11 @@ class Story
   }
   public static function getList($repoId){
     global $database;
-    $where = array('ORDER'=>array(
-      'priority' => 'DESC'
-    ));
+    $where = array(
+      'ORDER'=>array(
+        'priority' => 'DESC'
+      )
+    );
     $fields = array('id','name','priority');
     $data = $database->select('story',$fields,$where);
     foreach ($data as $key => $value) {

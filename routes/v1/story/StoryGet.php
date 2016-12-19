@@ -10,9 +10,6 @@
   */
 $app->get('/repos/:repo/stories/:id',function($repo,$storyId) use ($app,$config){
   $access_token = $app->request->get('access_token');
-  if(!isset($name)){
-    $name = "";
-  }
   if(!isset($access_token)){
     $app->render(400,ErrorCode::get(1));
     return;
