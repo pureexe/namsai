@@ -51,6 +51,18 @@ class Node
   public static function delete($nodeId){
 
   }
+  public static function get($storyId){
+    global $database;
+    $data = $database->get(
+      'node',
+      array('id','repoid','storyid','type','value'),
+      array('id'=>$storyId)
+    );
+    $data['id']=intval($data['id']);
+    $data['repoid']=intval($data['repoid']);
+    $data['storyid']=intval($data['storyid']);
+    return $data;
+  }
   /*
   isAcceptType: check node type is support for db
   */
@@ -68,6 +80,22 @@ class Node
       return true;
     }
     return false;
+  }
+  /*
+  isExist
+  */
+  public static function isExist($storyId,$repoId = null){
+    global $database;
+    if($repoId != null){
+      return $database->has('node',array(
+        'AND'=>array(
+            'id'=>$storyId,
+            'repoid'=>$repoId,
+        )
+      ));
+    }else{
+      return $database->has('node',array('id'=>$storyId));
+    }
   }
 }
 

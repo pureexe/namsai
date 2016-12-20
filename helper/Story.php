@@ -123,7 +123,7 @@ class Story
   //TODO: must render sort by edge order
   */
   public static function getKnowledge($storyId){
-
+    return array();
   }
 }
 ?>

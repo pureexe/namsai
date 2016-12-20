@@ -34,5 +34,6 @@ $app->get('/repos/:repo/stories/:id',function($repo,$storyId) use ($app,$config)
   }
   $result = Story::get($storyId);
   unset($result['repoid']);
+  $result['graph'] = Story::getKnowledge($storyId);
   $app->render(200,$result);
 });

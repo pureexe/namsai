@@ -60,6 +60,8 @@ class ErrorCode
       return 'parameter story and type is require for create new node';
     }else if($code == 22){
       return 'this type is\'t acceptable';
+    }else if($code == 23){
+      return 'this node isn\'t belong to this repo';
     }else{
       return null;
     }
