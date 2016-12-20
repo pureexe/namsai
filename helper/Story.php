@@ -44,14 +44,19 @@ class Story
   Don't be confuse with delete
   */
   public static function remove($storyId){
+    global $database;
+    $database->delete('story',array('id'=>$storyId));
   }
   /*
   delete: delete all data that have relation with story
   Don't be confuse with remove
   */
   public static function delete($storyId){
+    global $database;
+    $database->delete('edge',array('storyid'=>$storyId));
+    $database->delete('node',array('storyid'=>$storyId));
+    self::remove($storyId);
   }
-
   /*
   update: story name
   */
@@ -119,8 +124,6 @@ class Story
   */
   public static function getKnowledge($storyId){
 
-  }
-  public static function getRoot($storyId){
   }
 }
 ?>
