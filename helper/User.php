@@ -4,7 +4,7 @@
 **/
 class User
 {
-  public function add($username,$email,$password,$name)
+  public function add($username,$email,$password,$name = '')
   {
     global $database;
     $passwordHasher = new Pentagonal\Phpass\PasswordHash(8,false);

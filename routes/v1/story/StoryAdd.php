@@ -25,12 +25,12 @@ $app->post('/repos/:repo/stories',function($repo) use ($app,$config){
     $app->render(400,ErrorCode::get(2));
     return;
   }
-  $repoData = Repo::get($repo);
+  $repoId = Repo::get($repo);
   if($repo == null){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
-  if(!Repo::hasWritePermission($repoData['id'],$userId)){
+  if(!Repo::hasWritePermission($repoId,$userId)){
     $app->render(400,ErrorCode::get(17));
     return ;
   }
@@ -38,7 +38,7 @@ $app->post('/repos/:repo/stories',function($repo) use ($app,$config){
     $app->render(400,ErrorCode::get(19));
     return ;
   }
-  $result = Story::add($repoData['id'],$name,intval($order));
+  $result = Story::add($repoId,$name,intval($order));
   $app->render(200,array(
     'id' => intval($result),
   ));

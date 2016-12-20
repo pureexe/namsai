@@ -15,6 +15,8 @@
   require("helper/Repo.php");
   require("helper/Story.php");
   require("helper/User.php");
+  require("helper/Node.php");
+  require("helper/util/IrinLang.php");
   // Enjoy
   /*require("helper/jwt.php");
   require("helper/pdo.php");
@@ -24,7 +26,7 @@
   require("helper/Edge.php");
   require("helper/UserSession.php");
   require("helper/Response.php");
-  require("helper/IrinLang.php");*/
+  */
   require("routes/index.php");
 
   $app->run();
