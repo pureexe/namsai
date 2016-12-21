@@ -43,13 +43,14 @@ class Node
   */
   public static function remove($nodeId)
   {
-
+    global $database;
+    $database->delete('node',array('id'=>$nodeId));
   }
   /*
   delete: Don't confuse with remove
   */
   public static function delete($nodeId){
-
+    //TODO: implement tabel and delete node by node
   }
   public static function get($storyId){
     global $database;
