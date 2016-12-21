@@ -28,7 +28,7 @@ $app->post('/repos/:repo/stories/:id',function($repo,$storyId) use ($app){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
-  if(!Repo::hasReadPermission($repoId,$userId)){
+  if(!Repo::hasWritePermission($repoId,$userId)){
     $app->render(400,ErrorCode::get(17));
     return ;
   }

@@ -32,10 +32,11 @@ class Node
   }
   public static function update($nodeId,$value)
   {
+    global $database;
     if(self::getType($nodeId) == 'pattern'){
-
+      $database->update('node',array('value'=>$value,'pattern'=>$IrinLang::toRegex($value)),array('id'=>$nodeId));
     }else{
-
+      $database->update('node',array('value'=>$value),array('id'=>$nodeId));
     }
   }
   /*
@@ -97,6 +98,13 @@ class Node
     }else{
       return $database->has('node',array('id'=>$storyId));
     }
+  }
+  public static function getType($nodeId){
+    global $database;
+    $type = $database->get('node','type',array(
+      'id' => $nodeId,
+    ));
+    return ($type)?$type:null;
   }
 }
 
