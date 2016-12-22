@@ -107,6 +107,17 @@ class Repo
       )
     ));
   }
+  public function getByUserId($userId,$viewerId){
+    //viewerId is use for support private repo in future
+    global $database;
+    $fields = array('id','name','description');
+    $where = array('owner'=>$userId);
+    $data = $database->select('repo',$fields,$where);
+    foreach ($data as $key => $value) {
+      $data[$key]['id'] = intval($data[$key]['id']);
+    }
+    return $data;
+  }
 
 }
 ?>
