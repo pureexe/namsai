@@ -24,6 +24,9 @@ class Story
       array('id','name','repoid','priority(order)'),
       array('id'=>$storyId)
     );
+    if($data == false){
+      return null;
+    }
     $data['id']=intval($data['id']);
     $data['repoid']=intval($data['repoid']);
     $data['order']=intval($data['order']);

@@ -61,6 +61,9 @@ class Node
       array('id','repoid','storyid','type','value'),
       array('id'=>$nodeId)
     );
+    if($data == false){
+      return null;
+    }
     $data['id']=intval($data['id']);
     $data['repoid']=intval($data['repoid']);
     $data['storyid']=intval($data['storyid']);

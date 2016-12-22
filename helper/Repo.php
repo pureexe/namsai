@@ -36,7 +36,7 @@ class Repo
     }
     $fields = array('id','name','description','owner');
     $data = $database->get('repo',$fields,$where);
-    if(!$data){
+    if($data == false){
       return null;
     }
     $data['id'] = intval($data['id']);

@@ -43,7 +43,7 @@ class User
     }
     $fields = array('id','name','username','email','bio');
     $data = $database->get('user',$fields,$where);
-    if(!$data){
+    if($data == false){
       return null;
     }
     $data['id'] = intval($data['id']);
