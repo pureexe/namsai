@@ -3,8 +3,6 @@ $app->group('/v1', function () use ($app,$config) {
   require('auth/Login.php');
   require('edges/EdgeAdd.php');
   require('edges/EdgeDelete.php');
-  require('edges/EdgeGet.php');
-  require('edges/EdgeUpdate.php');
   require('nodes/NodeAdd.php');
   require('nodes/NodeDelete.php');
   require('nodes/NodeGet.php');

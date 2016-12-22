@@ -12,7 +12,6 @@ RESPONSE
 */
 $app->post('/repos/:repo/edges',function($repo) use ($app){
   $access_token = $app->request->post('access_token');
-  $access_token = $app->request->post('access_token');
   $cNode = $app->request->post('current');
   $nNode = $app->request->post('next');
   $order = $app->request->post('order');

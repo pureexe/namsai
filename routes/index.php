@@ -6,14 +6,12 @@
     ));
   });
   $app->get('/test', function() use ($app,$database) {
-    $data = $database->select('story',array('id','name','repoid'),array(
+    $data = $database->get('edge',array('id','repoid','storyid','nodeid','nodenext','priority(order)'),array(
       'AND'=>array(
-          'id'=>11,
-          'repoid'=>1,
+          'nodeid'=>0,
+          'nodenext'=>3,
       )
     ));
-    print_r($data);
-    exit();
     $app->render(200,$data);
   });
   require('v1/index.php');

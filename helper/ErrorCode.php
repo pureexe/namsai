@@ -70,6 +70,8 @@ class ErrorCode
       return 'node current isn\'t belong to this repo';
     }else if($code == 27){
       return 'node next isn\'t belong to this repo';
+    }else if($code == 28){
+      return 'edge isn\'t exist';
     }else{
       return null;
     }

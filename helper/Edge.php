@@ -17,8 +17,35 @@ class Edge{
     return intval($edgeId);
   }
   public static function remove($cNode,$nNode){
+    global $database;
+    $where = array(
+      'AND'=>array(
+          'nodeid'=>$cNode,
+          'nodenext'=>$nNode,
+      )
+    );
+    $database->delete('edge',$where);
   }
   public static function get($cNode,$nNode = null){
+    global $database;
+    $fields = array('id','repoid','storyid','nodeid','nodenext','priority(order)');
+    $where = array(
+      'AND'=>array(
+          'nodeid'=>$cNode,
+          'nodenext'=>$nNode,
+      )
+    );
+    $data = $database->get('edge',$fields,$where);
+    if($data == false){
+      return null;
+    }
+    $data['id']=intval($data['id']);
+    $data['repoid']=intval($data['repoid']);
+    $data['storyid']=intval($data['storyid']);
+    $data['nodeid']=intval($data['nodeid']);
+    $data['nodenext']=intval($data['nodenext']);
+    $data['order']=intval($data['order']);;
+    return $data;
   }
   public static function isExist($edgeId,$repoId){
 
