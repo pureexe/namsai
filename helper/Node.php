@@ -17,7 +17,7 @@ class Node
         'storyid' => $storyId,
         'type' => $type,
         'value' => $value,
-        'pattern' => $IrinLang::toRegex($value)
+        'pattern' => IrinLang::toRegex($value)
       );
     }else{
       $data = array(
@@ -35,7 +35,7 @@ class Node
     global $database;
     $node = self::get($nodeId);
     if($node['type'] == 'pattern'){
-      $database->update('node',array('value'=>$value,'pattern'=>$IrinLang::toRegex($value)),array('id'=>$nodeId));
+      $database->update('node',array('value'=>$value,'pattern'=>IrinLang::toRegex($value)),array('id'=>$nodeId));
     }else{
       $database->update('node',array('value'=>$value),array('id'=>$nodeId));
     }

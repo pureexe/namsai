@@ -59,6 +59,8 @@
       $regularExp = mb_ereg_replace('\\\\\\*','(.+)',$regularExp);
       return "^".$regularExp."$";
     }
+    /**
+    **/
     /*
     Escape regular expression
     use PHP escape than manually in original version
@@ -66,6 +68,6 @@
     public static function escape($expression){
       return preg_quote($expression);
     }
-  
+
   }
 ?>

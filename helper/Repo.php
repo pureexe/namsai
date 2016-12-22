@@ -66,9 +66,12 @@ class Repo
   public function isExist($name)
   {
     global $database;
-    $data = array('name'=>$name);
-    $count = $database->count("repo",$data);
-    return ($count>0)?true:false;
+    if(is_numeric($name)){
+      $where = array('id'=>$name);
+    }else{
+      $where = array('name'=>$name);
+    }
+    return $database->has('repo',$where);
   }
   public static function isReserved($username){
     global $config;
