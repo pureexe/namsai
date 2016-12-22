@@ -8,7 +8,7 @@ PARAMETER:
 RESPONSE:
   - id (node's id)
 */
-$app->post('/repos/:repo/nodes/:id',function($repo,$nodeId) use ($app,$config,$pdo){
+$app->post('/repos/:repo/nodes/:id',function($repo,$nodeId) use ($app){
   $access_token = $app->request->post('access_token');
   $value = $app->request->post("value");
   if(!isset($value)){

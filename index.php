@@ -16,14 +16,13 @@
   require("helper/Story.php");
   require("helper/User.php");
   require("helper/Node.php");
+  require("helper/Edge.php");
   require("helper/util/IrinLang.php");
   // Enjoy
   /*require("helper/jwt.php");
   require("helper/pdo.php");
   require("helper/Repo.php");
 
-  require("helper/Node.php");
-  require("helper/Edge.php");
   require("helper/UserSession.php");
   require("helper/Response.php");
   */

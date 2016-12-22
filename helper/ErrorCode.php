@@ -62,6 +62,14 @@ class ErrorCode
       return 'this type is\'t acceptable';
     }else if($code == 23){
       return 'this node isn\'t belong to this repo';
+    }else if($code == 24){
+      return 'this edge order is already exist';
+    }else if($code == 25){
+      return 'parameter current and next is require for create new node';
+    }else if($code == 26){
+      return 'node current isn\'t belong to this repo';
+    }else if($code == 27){
+      return 'node next isn\'t belong to this repo';
     }else{
       return null;
     }

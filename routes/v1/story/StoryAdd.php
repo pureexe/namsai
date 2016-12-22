@@ -38,7 +38,12 @@ $app->post('/repos/:repo/stories',function($repo) use ($app,$config){
     $app->render(400,ErrorCode::get(19));
     return ;
   }
-  $result = Story::add($repoId,$name,intval($order));
+  if(isset($order)){
+    $order = intval($order);
+  }else{
+    $order = null;
+  }
+  $result = Story::add($repoId,$name,$order);
   $app->render(200,array(
     'id' => intval($result),
   ));

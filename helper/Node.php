@@ -33,7 +33,8 @@ class Node
   public static function update($nodeId,$value)
   {
     global $database;
-    if(self::getType($nodeId) == 'pattern'){
+    $node = self::get($nodeId);
+    if($node['type'] == 'pattern'){
       $database->update('node',array('value'=>$value,'pattern'=>$IrinLang::toRegex($value)),array('id'=>$nodeId));
     }else{
       $database->update('node',array('value'=>$value),array('id'=>$nodeId));
@@ -53,12 +54,12 @@ class Node
   public static function delete($nodeId){
     //TODO: implement tabel and delete node by node
   }
-  public static function get($storyId){
+  public static function get($nodeId){
     global $database;
     $data = $database->get(
       'node',
       array('id','repoid','storyid','type','value'),
-      array('id'=>$storyId)
+      array('id'=>$nodeId)
     );
     $data['id']=intval($data['id']);
     $data['repoid']=intval($data['repoid']);
@@ -98,13 +99,6 @@ class Node
     }else{
       return $database->has('node',array('id'=>$storyId));
     }
-  }
-  public static function getType($nodeId){
-    global $database;
-    $type = $database->get('node','type',array(
-      'id' => $nodeId,
-    ));
-    return ($type)?$type:null;
   }
 }
 
