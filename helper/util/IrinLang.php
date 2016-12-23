@@ -19,7 +19,7 @@
           while(mb_substr($expression,$i+$j,1)!="]"){
             $j++;
           }
-          $optionals = mb_split("\\|",mb_substr($expression,$i+2,$j-3));
+          $optionals = mb_split("\\\\\\|",mb_substr($expression,$i+2,$j-3));
           if($i+$j<mb_strlen($expression) && mb_substr($expression,$i+$j+1,1) == " "){
             $k=0;
             while($k<mb_strlen($expression)){
@@ -59,8 +59,6 @@
       $regularExp = mb_ereg_replace('\\\\\\*','(.+)',$regularExp);
       return "^".$regularExp."$";
     }
-    /**
-    **/
     /*
     Escape regular expression
     use PHP escape than manually in original version
@@ -68,6 +66,9 @@
     public static function escape($expression){
       return preg_quote($expression);
     }
-
+    /*Mysql Friendly Support*/
+    public static function toMysql($expression){
+      return str_replace("(?:","(",$expression);
+    }
   }
 ?>
