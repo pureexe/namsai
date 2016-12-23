@@ -7,7 +7,7 @@ class ErrorCode
   function get($code,$attach = null){
     $c = array();
     $msg = self::build($code,$attach);
-    if($msg == null){
+    if(is_null($msg)){
       $c['error']['code'] = 0;
       $c['error']['message'] = 'unknown error';
     }else{

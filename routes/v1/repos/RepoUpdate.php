@@ -21,12 +21,12 @@ $app->post('/repos/:name',function($repoName) use ($app){
     return;
   }
   $userId = Authen::getId($access_token);
-  if(!isset($userId)){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return;
   }
   $repoData = Repo::get($repoName);
-  if($repoData == null){
+  if(is_null($repoData)){
     $app->render(404,ErrorCode::get(10));
     return;
   }

@@ -18,7 +18,7 @@ $app->delete('/repos/:repo/edges',function($repo) use ($app){
     return;
   }
   $userId = Authen::getId($access_token);
-  if(!isset($userId)){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return;
   }
@@ -26,7 +26,7 @@ $app->delete('/repos/:repo/edges',function($repo) use ($app){
     $app->render(400,ErrorCode::get(25));
   }
   $repoId = Repo::get($repo);
-  if($repo == null){
+  if(is_null($repo)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
@@ -43,7 +43,7 @@ $app->delete('/repos/:repo/edges',function($repo) use ($app){
     return ;
   }
   $result = Edge::get($cNode,$nNode);
-  if($result == null){
+  if(is_null($result)){
     $app->render(400,ErrorCode::get(28));
     return ;
   }

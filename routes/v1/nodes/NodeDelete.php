@@ -20,7 +20,7 @@ $app->delete('/repos/:repo/nodes/:id',function($repo,$nodeId) use ($app){
     return ;
   }
   $repoId = Repo::get($repo)['id'];
-  if($repo == null){
+  if(is_null($repo)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }

@@ -15,12 +15,12 @@ $app->get('/repos/:repo/stories/:id',function($repo,$storyId) use ($app,$config)
     return;
   }
   $userId = Authen::getId($access_token);
-  if(!isset($userId)){
+  if(!is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return;
   }
   $repoId = Repo::get($repo)['id'];
-  if($repo == null){
+  if(is_null($repoId)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }

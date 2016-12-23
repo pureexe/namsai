@@ -2,7 +2,7 @@
 $app->get('/users/:user/repos',function($username) use ($app){
   $access_token = $app->request->get('access_token');
   $userId = User::get($username);
-  if($userId == null){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(9));
     return;
   }

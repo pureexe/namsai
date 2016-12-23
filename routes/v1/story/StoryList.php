@@ -18,7 +18,7 @@ $app->get('/repos/:repo/stories',function($repo) use ($app){
     return;
   }
   $userId = Authen::getId($access_token);
-  if(!isset($userId)){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return;
   }
@@ -32,6 +32,8 @@ $app->get('/repos/:repo/stories',function($repo) use ($app){
     return ;
   }
   $result = Story::getList($repoId);
-  $app->render(200,$result);
+  $app->render(200,array(
+    'stories'=>$result
+  ));
 });
 ?>

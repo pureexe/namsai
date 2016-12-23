@@ -4,10 +4,10 @@ class Node
   public static function add($storyId,$type,$value = null,$repoId = null)
   {
     global $database;
-    if($repoId == null){
+    if(is_null($repoId)){
       $repoId = Story::getRepoId($storyId);
     }
-    if($value == null){
+    if(is_null($value)){
       $value = '';
     }
     if($type=='pattern'){

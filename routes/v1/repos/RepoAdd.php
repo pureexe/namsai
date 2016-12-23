@@ -21,7 +21,7 @@ $app->post('/repos',function() use ($app){
     return;
   }
   $userId = Authen::getId($access_token);
-  if($userId == null){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
   }
   if(!isset($description)){

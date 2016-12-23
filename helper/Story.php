@@ -6,7 +6,7 @@ class Story
   */
   public static function add($repoId,$storyName = '',$order = null){
     global $database;
-    if($order == null){
+    if(is_null($order)){
       $order = self::getMaxOrder($repoId)+1;
     }
     $data = array(
@@ -108,6 +108,7 @@ class Story
   public static function getList($repoId){
     global $database;
     $where = array(
+      'repoid' => $repoId,
       'ORDER'=>array(
         'priority' => 'DESC'
       )

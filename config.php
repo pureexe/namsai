@@ -19,7 +19,8 @@
         'email',
         'bio',
         'register',
-        'docs'
+        'docs',
+        'apps'
       ),
       'english_username' => true,
     );

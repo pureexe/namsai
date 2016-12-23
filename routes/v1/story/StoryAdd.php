@@ -21,15 +21,16 @@ $app->post('/repos/:repo/stories',function($repo) use ($app,$config){
     return;
   }
   $userId = Authen::getId($access_token);
-  if(!isset($userId)){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return;
   }
-  $repoId = Repo::get($repo);
-  if($repo == null){
+  $repoId = Repo::get($repo)['id'];
+  if(is_null($repoId)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
+  $repoId = $repoId['id'];
   if(!Repo::hasWritePermission($repoId,$userId)){
     $app->render(400,ErrorCode::get(17));
     return ;

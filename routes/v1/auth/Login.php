@@ -15,7 +15,7 @@ $app->post('/auth',function() use ($app){
     $app->render(400,ErrorCode::get(15));
   }
   $token = Authen::getToken($username,$password);
-  if($token == null){
+  if(is_null($token)){
     $app->render(400,ErrorCode::get(16));
   }
   $app->render(200,array(

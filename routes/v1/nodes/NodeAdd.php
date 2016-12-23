@@ -19,7 +19,7 @@ $app->post('/repos/:repo/nodes',function($repo) use ($app){
     return ;
   }
   $userId = Authen::getId($access_token);
-  if(!isset($userId)){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return ;
   }
@@ -27,7 +27,7 @@ $app->post('/repos/:repo/nodes',function($repo) use ($app){
     $app->render(400,ErrorCode::get(21));
   }
   $repoId = Repo::get($repo)['id'];
-  if($repo == null){
+  if(is_null($repo)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }

@@ -2,7 +2,7 @@
 class Edge{
   public static function add($cNode,$nNode,$order = null){
     global $database;
-    if($order == null){
+    if(is_null($order)){
       $order = self::getMaxOrder($cNode)+1;
     }
     $node = Node::get($nNode);

@@ -15,11 +15,11 @@ $app->delete('/repos/:name',function($reponame) use ($app){
     return;
   }
   $userId = Authen::getId($access_token);
-  if($userId == null){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
   }
   $repoData = Repo::get($reponame);
-  if($repoData == null){
+  if(is_null($repoData)){
     $app->render(400,ErrorCode::get(10));
     return;
   }

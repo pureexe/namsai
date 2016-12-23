@@ -31,7 +31,7 @@ $app->post('/repos/:repo/edges',function($repo) use ($app){
     $app->render(400,ErrorCode::get(25));
   }
   $repoId = Repo::get($repo);
-  if($repo == null){
+  if(is_null($repo)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
