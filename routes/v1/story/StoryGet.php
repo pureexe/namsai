@@ -15,7 +15,7 @@ $app->get('/repos/:repo/stories/:id',function($repo,$storyId) use ($app,$config)
     return;
   }
   $userId = Authen::getId($access_token);
-  if(!is_null($userId)){
+  if(is_null($userId)){
     $app->render(400,ErrorCode::get(2));
     return;
   }

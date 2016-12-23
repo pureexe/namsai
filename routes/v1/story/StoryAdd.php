@@ -30,7 +30,6 @@ $app->post('/repos/:repo/stories',function($repo) use ($app,$config){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
-  $repoId = $repoId['id'];
   if(!Repo::hasWritePermission($repoId,$userId)){
     $app->render(400,ErrorCode::get(17));
     return ;
