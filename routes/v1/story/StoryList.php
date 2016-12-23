@@ -23,7 +23,7 @@ $app->get('/repos/:repo/stories',function($repo) use ($app){
     return;
   }
   $repoId = Repo::get($repo)['id'];
-  if($repo == null){
+  if(is_null($repoId)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
