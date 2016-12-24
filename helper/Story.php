@@ -127,7 +127,11 @@ class Story
   */
   public static function getKnowledge($storyId){
     $tree = Story::getTree(0,$storyId);
-    return array('nodes'=>$tree);
+    if(is_null($tree)){
+      return new stdClass();
+    }else{
+      return array('nodes'=>$tree);
+    }
   }
   public static function getTree($nodeId,$storyId = null){
     $child = Edge::getChild($nodeId,$storyId);
