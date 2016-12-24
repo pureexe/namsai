@@ -78,5 +78,37 @@ class Edge{
       )
     ));
   }
+  /*
+  getChild:
+  user to query nodeId for child list
+  */
+  public static function getChild($cNode,$storyId = null){
+    global $database;
+    $fields = array('nodenext');
+    if(is_null($storyId)){
+      $where = array(
+        'nodeid' => $cNode,
+        'ORDER' =>array(
+          'priority' => 'ASC'
+        )
+      );
+    }else{
+      $where = array(
+        'AND' => array(
+          'nodeid' => $cNode,
+          'storyid' => $storyId
+        ),
+        'ORDER' =>array(
+          'priority' => 'ASC'
+        )
+      );
+    }
+    $data = $database->select('edge',$fields,$where);
+    $output = array();
+    foreach ($data as $key => $value) {
+      $output[] = intval($value['nodenext']);
+    }
+    return $output;
+  }
 }
 ?>

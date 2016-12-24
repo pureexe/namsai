@@ -124,10 +124,48 @@ class Story
   }
   /*
   getKnowledge
-  //TODO: must render sort by edge order
   */
   public static function getKnowledge($storyId){
-    return array();
+    $tree = Story::getTree(0,$storyId);
+    return array('nodes'=>$tree);
   }
+  public static function getTree($nodeId,$storyId = null){
+    $child = Edge::getChild($nodeId,$storyId);
+    if(count($child) == 0){
+      return null;
+    }
+    $output = array();
+    foreach ($child as $cChild) {
+      $cNode = Node::get($cChild);
+      if(isset($cNode)){
+          unset($cNode['repoid']);
+          unset($cNode['storyid']);
+          $nodeInfo = array('data' => $cNode);
+          $nodeNext = self::getTree($cNode['id'],$storyId);
+          if(isset($nodeNext)){
+            $nodeInfo['nodes'] = $nodeNext;
+          }
+          $output[] = $nodeInfo;
+      }
+    }
+    return $output;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>
