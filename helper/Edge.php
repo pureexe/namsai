@@ -7,10 +7,10 @@ class Edge{
     }
     $node = Node::get($nNode);
     $data = array(
-      'storyid'=> $node['repoid'],
-      'repoid' => $node['storyid'],
-      'nodeid'=>$cNode,
-      'nodenext'=>$nNode,
+      'repoid' => $node['repoid'],
+      'storyid' => $node['storyid'],
+      'nodeid' => $cNode,
+      'nodenext' => $nNode,
       'priority' => $order
     );
     $edgeId = $database->insert('edge',$data);
