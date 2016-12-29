@@ -52,7 +52,12 @@ class Node
   delete: Don't confuse with remove
   */
   public static function delete($nodeId){
-    //TODO: implement tabel and delete node by node
+    $child = Edge::getChild($nodeId);
+    foreach ($child as $nodeNext) {
+      Edge::remove($nodeId,$nodeNext);
+      self::delete($nodeNext);
+    }
+    self::remove($nodeId);
   }
   public static function get($nodeId){
     global $database;
