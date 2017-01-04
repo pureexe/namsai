@@ -18,12 +18,18 @@ class Edge{
   }
   public static function remove($cNode,$nNode){
     global $database;
-    $where = array(
-      'AND'=>array(
-          'nodeid'=>$cNode,
-          'nodenext'=>$nNode,
-      )
-    );
+    if($cNode == '*'){
+      $where = array(
+        'nodenext'=>$nNode,
+      );
+    }else{
+      $where = array(
+        'AND'=>array(
+            'nodeid'=>$cNode,
+            'nodenext'=>$nNode,
+        )
+      );
+    }
     $database->delete('edge',$where);
   }
   public static function get($cNode,$nNode = null){

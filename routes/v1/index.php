@@ -22,5 +22,6 @@ $app->group('/v1', function () use ($app,$config) {
   require('story/StoryList.php');
   require('story/StoryUpdate.php');
   require('nodes/NodeAdd.php');
+  require('messages/post.php');
 });
 ?>

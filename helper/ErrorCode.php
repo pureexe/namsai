@@ -75,7 +75,7 @@ class ErrorCode
     }else if($code == 29){
       return 'parameter input is require for message response';
     }else if($code == 30){
-      return 'can\'t found any response';
+      return 'doesn\'t have any response';
     }else{
       return null;
     }

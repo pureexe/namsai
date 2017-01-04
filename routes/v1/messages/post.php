@@ -11,7 +11,8 @@ RESPONSE:
 $app->post('/repos/:repo/messages',function($repo) use ($app){
   $senderId = $app->request->post('id');
   $input = $app->request->post('input');
-  if(Repo::isExist($repo)){
+  $repoId = Repo::get($repo)['id'];
+  if(is_null($repo)){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
@@ -25,13 +26,13 @@ $app->post('/repos/:repo/messages',function($repo) use ($app){
     //User who use nat will get same account data
     $senderId = 'IP_'.$app->request->getIp();
   }
-  $response = Response::get($repoId,$senderId,$input);
-  if($response != null){
+  $response = Namsai::get($repoId,$senderId,$input);
+  if(is_null($response)){
+    $app->render(400,ErrorCode::get(30));
+  }else{
     $app->render(200,array(
       'message'=>$response
     ));
-  }else{
-    $app->render(400,ErrorCode::get(39));
   }
 });
 ?>

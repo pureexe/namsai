@@ -58,6 +58,7 @@ class Node
       self::delete($nodeNext);
     }
     self::remove($nodeId);
+    Edge::remove('*',$nodeId);
   }
   public static function get($nodeId){
     global $database;
