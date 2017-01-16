@@ -1,5 +1,6 @@
 <?php
   require("vendor/autoload.php");
+  $passwordHasher = new Pentagonal\Phpass\PasswordHash(8,false);
   require("helper/util/JsonRenderView.php");
   require("helper/util/JsonRenderMiddleware.php");
   $app = new \Slim\Slim();
