@@ -21,6 +21,7 @@
   require("helper/util/IrinLang.php");
   require("helper/Namsai.php");
   require("helper/UserSession.php");
+  require("helper/Variable.php");
   // Enjoy
   /*require("helper/jwt.php");
   require("helper/pdo.php");

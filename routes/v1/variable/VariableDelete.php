@@ -1,24 +1,14 @@
 <?php
 /*
-สร้างตัวแปรใหม่
-POST: /repos/:repo/variable
+ลบตัวแปรก
+DELETE: /repos/:repo/variable/id
 PARAMETER:
-  - name
-  - value
   - access_token
 RESPONSE:
-  - id
+  - id (story's id)
 */
-$app->post('/repos/:repo/variables',function($repo) use ($app,$config){
+$app->delete('/repos/:repo/variables/:id',function($repo,$varId) use ($app){
   $access_token = $app->request->post('access_token');
-  $name = $app->request->post("name");
-  $value = $app->request->post("value");
-  if(!isset($name)){
-    $app->render(400,ErrorCode::get(31));
-  }
-  if(!isset($value)){
-    $app->render(400,ErrorCode::get(32));
-  }
   if(!isset($access_token)){
     $app->render(400,ErrorCode::get(1));
     return;
@@ -33,14 +23,18 @@ $app->post('/repos/:repo/variables',function($repo) use ($app,$config){
     $app->render(400,ErrorCode::get(10));
     return ;
   }
+  $repoId = Repo::get($repo)['id'];
   if(!Repo::hasWritePermission($repoId,$userId)){
     $app->render(400,ErrorCode::get(17));
     return ;
   }
-  $result = Variable::add($repoId,$name,$value);
+  if(!Variable::isExist($varId,$repoId)){
+    $app->render(400,ErrorCode::get(33));
+    return ;
+  }
+  Variable::delete($varId);
   $app->render(200,array(
-    'id' => intval($result),
+    'id'=>intval($varId)
   ));
 });
-
 ?>

@@ -23,5 +23,9 @@ $app->group('/v1', function () use ($app,$config) {
   require('story/StoryUpdate.php');
   require('nodes/NodeAdd.php');
   require('messages/post.php');
+  require('variable/VariableList.php');
+  require('variable/VariableAdd.php');
+  require('variable/VariableDelete.php');
+  require('variable/VariableUpdate.php');
 });
 ?>

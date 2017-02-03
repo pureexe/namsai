@@ -76,6 +76,12 @@ class ErrorCode
       return 'parameter input is require for message response';
     }else if($code == 30){
       return 'doesn\'t have any response';
+    }else if($code == 31){
+      return 'name is required';
+    }else if($code == 32){
+      return 'value is required';
+    }else if($code == 33){
+      return 'this variable isn\'t belong to this repo';
     }else{
       return null;
     }
